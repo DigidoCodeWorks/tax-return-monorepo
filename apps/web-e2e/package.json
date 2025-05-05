@@ -1,0 +1,10 @@
+{
+  "name": "@tax-return-app/web-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "implicitDependencies": [
+      "@tax-return-app/web"
+    ]
+  }
+}
