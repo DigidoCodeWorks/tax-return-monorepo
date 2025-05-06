@@ -2,6 +2,7 @@ import './global.css';
 import { defaultMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import Header from '@/components/layout/header/Header';
+import { ibmPlexSans } from '@/lib/fonts'; // or wherever you saved it
 
 export const metadata: Metadata = defaultMetadata;
 
@@ -11,11 +12,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="is">
-      <body>
-        <Header />
-        <main>{children}</main>
-      </body>
+    <html lang="en" className={ibmPlexSans.variable}>
+      <Header />
+      <body>{children}</body>
     </html>
   );
 }
