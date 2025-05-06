@@ -1,4 +1,7 @@
+'use client';
+
 import clsx from 'clsx';
+import { usePathname } from 'next/navigation';
 
 const steps = [
   'Almennar upplýsingar',
@@ -9,11 +12,13 @@ const steps = [
   'Samantekt',
 ];
 
-export default function TaxStepper({
-  currentStep = 1,
-}: {
-  currentStep: number;
-}) {
+export default function TaxStepper() {
+  const pathname = usePathname();
+
+  // Extract step number from URL (e.g., /tax-returns/[id]/step-3)
+  const match = pathname.match(/step-(\d+)/);
+  const currentStep = match ? parseInt(match[1], 10) : 1;
+
   return (
     <ol className="space-y-6 text-sm text-gray-700">
       {steps.map((label, i) => {

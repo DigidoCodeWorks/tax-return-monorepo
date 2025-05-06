@@ -1,6 +1,14 @@
-import { taxReturnsMetadata as metadata } from '@/lib/metadata';
-export { metadata };
+import type { Metadata } from 'next';
+import TaxReturnsSidebar from '@/components/layout/TaxReturnsSidebar';
+import { taxReturnsMetadata } from '@/lib/metadata';
+
+export const metadata: Metadata = taxReturnsMetadata;
 
 export default function TaxReturnsPage() {
-  return <main>tax returns</main>;
+  return (
+    <main className="flex">
+      <TaxReturnsSidebar />
+      Tax Returns in progress
+    </main>
+  );
 }
