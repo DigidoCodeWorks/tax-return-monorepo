@@ -2,51 +2,56 @@
 
 @theme {
   /* PRIMARY - BLUE */
-  --color-primary-blue-600: #0040ab;
-  --color-primary-blue-400: #0055ff;
-  --color-primary-blue-300: #4a84fa;
-  --color-primary-blue-200: #b3ccff;
-  --color-primary-blue-100: #e5eeff;
+  --color-primary-blue-600: #0044b3;
+  --color-primary-blue-400: #0061ff;
+  --color-primary-blue-300: #99c0ff;
+  --color-primary-blue-200: #ccdfff;
+  --color-primary-blue-100: #f2f7ff;
   /* PRIMARY - RED */
-  --color-primary-red-600: #b10060;
-  --color-primary-red-400: #ff005b;
-  --color-primary-red-300: #fa4a84;
-  --color-primary-red-200: #ffb3cc;
-  --color-primary-red-100: #ffe5ec;
+  --color-primary-red-600: #b30038;
+  --color-primary-red-400: #ff0050;
+  --color-primary-red-300: #ff99b9;
+  --color-primary-red-200: #ffccdc;
+  --color-primary-red-100: #fff2f6;
   /* PRIMARY - DARK */
-  --color-primary-dark-600: #000c3c;
-  --color-primary-dark-400: #191f5e;
-  --color-primary-dark-300: #707199;
-  --color-primary-dark-200: #cccccc;
+  --color-primary-dark-400: #000c3c;
+  --color-primary-dark-300: #9999b1;
+  --color-primary-dark-200: #ccccd8;
   --color-primary-dark-100: #f2f2f5;
   /* SECONDARY - BLUEBERRY */
-  --color-secondary-blueberry-600: #23006a;
-  --color-secondary-blueberry-400: #4729a2;
-  --color-secondary-blueberry-300: #5a4dd9;
-  --color-secondary-blueberry-200: #beb8ff;
-  --color-secondary-blueberry-100: #efe5ff;
+  --color-secondary-blueberry-600: #24268e;
+  --color-secondary-blueberry-400: #4649d0;
+  --color-secondary-blueberry-300: #b5b6ec;
+  --color-secondary-blueberry-200: #dadbf6;
+  --color-secondary-blueberry-100: #f6f6fd;
   /* SECONDARY - PURPLE */
-  --color-secondary-purple-600: #610c83;
-  --color-secondary-purple-400: #8e4cba;
-  --color-secondary-purple-300: #b582dd;
-  --color-secondary-purple-200: #e6ccff;
-  --color-secondary-purple-100: #f8f2ff;
+  --color-secondary-purple-600: #421c63;
+  --color-secondary-purple-400: #6a2ea0;
+  --color-secondary-purple-300: #c3abd9;
+  --color-secondary-purple-200: #e1d5ec;
+  --color-secondary-purple-100: #f8f5fa;
   /* SECONDARY - ROSE */
-  --color-secondary-rose-600: #6e003a;
-  --color-secondary-rose-400: #ab1079;
-  --color-secondary-rose-300: #df70c7;
-  --color-secondary-rose-200: #e6ccec;
-  --color-secondary-rose-100: #f8f2fa;
+  --color-secondary-rose-600: #4d003a;
+  --color-secondary-rose-400: #9a0074;
+  --color-secondary-rose-300: #d799c7;
+  --color-secondary-rose-200: #ebcce3;
+  --color-secondary-rose-100: #faf2f8;
   /* ACCENT - MINT */
-  --color-accent-mint-600: #019188;
-  --color-accent-mint-400: #00c4b3;
-  --color-accent-mint-300: #31e1d3;
-  --color-accent-mint-200: #73f4e7;
-  --color-accent-mint-100: #d1fff9;
+  --color-accent-mint-800: #005b52;
+  --color-accent-mint-600: #00b39e;
+  --color-accent-mint-400: #00e4ca;
+  --color-accent-mint-300: #99f4ea;
+  --color-accent-mint-200: #ccfaf4;
+  --color-accent-mint-100: #f2fefc;
   /* ACCENT - YELLOW */
-  --color-accent-yellow-600: #f6c700;
-  --color-accent-yellow-400: #ffd100;
-  --color-accent-yellow-300: #ffe76c;
-  --color-accent-yellow-200: #fff7cc;
-  --color-accent-yellow-100: #fff9f7;
+  --color-accent-yellow-600: #e6cf00;
+  --color-accent-yellow-400: #fff066;
+  --color-accent-yellow-300: #fff9c2;
+  --color-accent-yellow-200: #fffce0;
+  --color-accent-yellow-100: #fffef7;
+}
+@layer base {
+  html {
+    font-family: var(--font-ibm), sans-serif;
+  }
 }
