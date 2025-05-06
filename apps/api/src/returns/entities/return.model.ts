@@ -30,6 +30,7 @@ export class TaxReturn extends Model {
   @Column({ type: DataType.INTEGER })
   year: number;
 
+  @Unique('year_userId')
   @Column({ type: DataType.STRING })
   @Field()
   userId: string;

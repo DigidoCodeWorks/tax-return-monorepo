@@ -4,7 +4,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { TaxReturn, TaxReturnInput, TaxReturnUpdateInput } from './entities/return.model';
+import {
+  TaxReturn,
+  TaxReturnInput,
+  TaxReturnUpdateInput,
+} from './entities/return.model';
 import { Revenue } from './entities/revenue.model';
 import {
   Assets,
@@ -101,9 +105,7 @@ export class ReturnsService {
     return taxReturnInstance;
   }
 
-  async updateTaxReturn(
-    taxReturnIn: TaxReturnUpdateInput,
-  ): Promise<TaxReturn> {
+  async updateTaxReturn(taxReturnIn: TaxReturnUpdateInput): Promise<TaxReturn> {
     // start a transaction
     const transaction = await this.sequelize.transaction();
     try {
@@ -164,18 +166,18 @@ export class ReturnsService {
           where: { taxReturnId: taxReturnIn.id },
           transaction,
         });
+        await Revenue.create(
+          { taxReturnId: taxReturnIn.id, ...taxReturnIn.revenue },
+          {
+            include: [
+              { model: WageIncome, as: 'wageIncomes' },
+              { model: VehicleAllowance, as: 'vehicleAllowances' },
+              { model: PensionPayment, as: 'pensionPayments' },
+            ],
+            transaction,
+          },
+        );
       }
-      await Revenue.create(
-        { taxReturnId: taxReturnIn.id, ...taxReturnIn.revenue },
-        {
-          include: [
-            { model: WageIncome, as: 'wageIncomes' },
-            { model: VehicleAllowance, as: 'vehicleAllowances' },
-            { model: PensionPayment, as: 'pensionPayments' },
-          ],
-          transaction,
-        },
-      );
 
       // 4) delete & recreate Assets + its children
       if (taxReturnIn.assets) {
@@ -191,17 +193,17 @@ export class ReturnsService {
           where: { taxReturnId: taxReturnIn.id },
           transaction,
         });
+        await Assets.create(
+          { taxReturnId: taxReturnIn.id, ...taxReturnIn.assets },
+          {
+            include: [
+              { model: DomesticRealEstate, as: 'domesticRealEstate' },
+              { model: Automobile, as: 'automobiles' },
+            ],
+            transaction,
+          },
+        );
       }
-      await Assets.create(
-        { taxReturnId: taxReturnIn.id, ...taxReturnIn.assets },
-        {
-          include: [
-            { model: DomesticRealEstate, as: 'domesticRealEstate' },
-            { model: Automobile, as: 'automobiles' },
-          ],
-          transaction,
-        },
-      );
 
       // 5) delete & recreate DebtAndExpenses + its children
       if (taxReturnIn.debtAndExpenses) {
@@ -221,20 +223,20 @@ export class ReturnsService {
           where: { taxReturnId: taxReturnIn.id },
           transaction,
         });
+        await DebtAndExpenses.create(
+          { taxReturnId: taxReturnIn.id, ...taxReturnIn.debtAndExpenses },
+          {
+            include: [
+              {
+                model: ResidentialPropertyInterestExpense,
+                as: 'residentialInterestExpenses',
+              },
+              { model: OtherDebt, as: 'otherDebts' },
+            ],
+            transaction,
+          },
+        );
       }
-      await DebtAndExpenses.create(
-        { taxReturnId: taxReturnIn.id, ...taxReturnIn.debtAndExpenses },
-        {
-          include: [
-            {
-              model: ResidentialPropertyInterestExpense,
-              as: 'residentialInterestExpenses',
-            },
-            { model: OtherDebt, as: 'otherDebts' },
-          ],
-          transaction,
-        },
-      );
 
       // 6) commit & return fresh
       await transaction.commit();
