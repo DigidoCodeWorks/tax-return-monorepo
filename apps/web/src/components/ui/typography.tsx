@@ -9,13 +9,14 @@ type Variant =
   | 'h3'
   | 'h4'
   | 'h5'
+  | 'p'
   | 'intro'
   | 'body'
   | 'medium'
   | 'small';
 
 interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
-  variant: Variant;
+  variant?: Variant;
   as?: keyof HTMLElementTagNameMap;
   className?: string;
   children: React.ReactNode;
@@ -27,6 +28,7 @@ const variantClasses: Record<Variant, string> = {
   h3: 'text-[22px] leading-[30px] font-semibold md:text-[28px] md:leading-[36px]',
   h4: 'text-[18px] leading-[26px] font-semibold md:text-[22px] md:leading-[30px]',
   h5: 'text-[16px] leading-[24px] font-semibold md:text-[18px] md:leading-[26px]',
+  p: 'text-[16px] leading-[24px] font-normal md:text-[18px] md:leading-[26px]',
   intro:
     'text-[16px] leading-[26px] font-normal md:text-[18px] md:leading-[28px]',
   body: 'text-[15px] leading-[24px] font-normal md:text-[16px] md:leading-[26px]',
@@ -35,7 +37,7 @@ const variantClasses: Record<Variant, string> = {
 };
 
 export const Typography = ({
-  variant,
+  variant = 'p',
   as = 'p',
   className,
   children,
