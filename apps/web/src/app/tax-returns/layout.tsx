@@ -11,7 +11,7 @@ export default function TaxFormLayout({
 }) {
   return (
     <main className="flex min-h-screen">
-      <TaxStepper />
+      <TaxStepper currentStep={0} />
       <div className="flex-1 px-4 py-6">{children}</div>
     </main>
   );
