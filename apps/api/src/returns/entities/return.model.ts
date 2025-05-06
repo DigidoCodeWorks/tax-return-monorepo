@@ -22,7 +22,10 @@ export class TaxReturn extends Model {
   @Field()
   override id: string;
 
-  @Unique({ name: 'year_userId', msg: 'Tax return already exists for given year' })
+  @Unique({
+    name: 'year_userId',
+    msg: 'Tax return already exists for given year',
+  })
   @Field()
   @Column({ type: DataType.INTEGER })
   year: number;
@@ -60,4 +63,19 @@ export class TaxReturnInput {
 
   @Field(() => DebtAndExpensesInput)
   debtAndExpenses: DebtAndExpensesInput;
+}
+
+@InputType()
+export class TaxReturnUpdateInput {
+  @Field({ nullable: false })
+  id: string;
+
+  @Field(() => RevenueInput, { nullable: true })
+  revenue?: RevenueInput;
+
+  @Field(() => AssetsInput, { nullable: true })
+  assets?: AssetsInput;
+
+  @Field(() => DebtAndExpensesInput, { nullable: true })
+  debtAndExpenses?: DebtAndExpensesInput;
 }
