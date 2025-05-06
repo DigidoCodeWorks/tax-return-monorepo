@@ -19,7 +19,7 @@ export default function Header() {
             <input
               type="text"
               placeholder="Leitaðu á Ísland.is"
-              className="w-full rounded-md bg-[#F6F9FC] px-4 py-2 pr-10 text-sm text-[#1B1B1B] placeholder:text-[#1B1B1B] border border-[#D0E3FC] focus:outline-none focus:ring-2 focus:ring-[#0061FF]"
+              className="w-full pointer-events-none rounded-md bg-[#F6F9FC] px-4 py-2 pr-10 text-sm placeholder:text-[#1B1B1B] border border-[#D0E3FC] focus:outline-none focus:ring-2 focus:ring-[#0061FF]"
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#0061FF]">
               <SearchIcon className="shrink-0" />
