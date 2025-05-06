@@ -1,57 +1,65 @@
 @import 'tailwindcss';
 
 @theme {
-  /* PRIMARY - BLUE */
-  --color-primary-blue-600: #0044b3;
-  --color-primary-blue-400: #0061ff;
-  --color-primary-blue-300: #99c0ff;
-  --color-primary-blue-200: #ccdfff;
-  --color-primary-blue-100: #f2f7ff;
+  --color-primary-blue-600: #0044B3;
+  --color-primary-blue-400: #0061FF;
+  --color-primary-blue-300: #99C0FF;
+  --color-primary-blue-200: #CCDFFF;
+  --color-primary-blue-100: #F2F7FF;
+
   /* PRIMARY - RED */
-  --color-primary-red-600: #b30038;
-  --color-primary-red-400: #ff0050;
-  --color-primary-red-300: #ff99b9;
-  --color-primary-red-200: #ffccdc;
-  --color-primary-red-100: #fff2f6;
+  --color-primary-red-600: #B30038;
+  --color-primary-red-400: #FF0050;
+  --color-primary-red-300: #FF99B9;
+  --color-primary-red-200: #FFCCDC;
+  --color-primary-red-100: #FFF2F6;
+
   /* PRIMARY - DARK */
-  --color-primary-dark-400: #000c3c;
-  --color-primary-dark-300: #9999b1;
-  --color-primary-dark-200: #ccccd8;
-  --color-primary-dark-100: #f2f2f5;
+  --color-primary-dark-400: #000C3C;
+  --color-primary-dark-300: #9999B1;
+  --color-primary-dark-200: #CCCCD8;
+  --color-primary-dark-100: #F2F2F5;
+
   /* SECONDARY - BLUEBERRY */
-  --color-secondary-blueberry-600: #24268e;
-  --color-secondary-blueberry-400: #4649d0;
-  --color-secondary-blueberry-300: #b5b6ec;
-  --color-secondary-blueberry-200: #dadbf6;
-  --color-secondary-blueberry-100: #f6f6fd;
+  --color-secondary-blueberry-600: #24268E;
+  --color-secondary-blueberry-400: #4649D0;
+  --color-secondary-blueberry-300: #B5B6EC;
+  --color-secondary-blueberry-200: #DADBF6;
+  --color-secondary-blueberry-100: #F6F6FD;
+
   /* SECONDARY - PURPLE */
-  --color-secondary-purple-600: #421c63;
-  --color-secondary-purple-400: #6a2ea0;
-  --color-secondary-purple-300: #c3abd9;
-  --color-secondary-purple-200: #e1d5ec;
-  --color-secondary-purple-100: #f8f5fa;
+  --color-secondary-purple-600: #421C63;
+  --color-secondary-purple-400: #6A2EA0;
+  --color-secondary-purple-300: #C3ABD9;
+  --color-secondary-purple-200: #E1D5EC;
+  --color-secondary-purple-100: #F8F5FA;
+
   /* SECONDARY - ROSE */
-  --color-secondary-rose-600: #4d003a;
-  --color-secondary-rose-400: #9a0074;
-  --color-secondary-rose-300: #d799c7;
-  --color-secondary-rose-200: #ebcce3;
-  --color-secondary-rose-100: #faf2f8;
+  --color-secondary-rose-600: #4D003A;
+  --color-secondary-rose-400: #9A0074;
+  --color-secondary-rose-300: #D799C7;
+  --color-secondary-rose-200: #EBCCE3;
+  --color-secondary-rose-100: #FAF2F8;
+
   /* ACCENT - MINT */
-  --color-accent-mint-800: #005b52;
-  --color-accent-mint-600: #00b39e;
-  --color-accent-mint-400: #00e4ca;
-  --color-accent-mint-300: #99f4ea;
-  --color-accent-mint-200: #ccfaf4;
-  --color-accent-mint-100: #f2fefc;
+  --color-accent-mint-800: #005B52;
+  --color-accent-mint-600: #00B39E;
+  --color-accent-mint-400: #00E4CA;
+  --color-accent-mint-300: #99F4EA;
+  --color-accent-mint-200: #CCFAF4;
+  --color-accent-mint-100: #F2FEFC;
+
   /* ACCENT - YELLOW */
-  --color-accent-yellow-600: #e6cf00;
-  --color-accent-yellow-400: #fff066;
-  --color-accent-yellow-300: #fff9c2;
-  --color-accent-yellow-200: #fffce0;
-  --color-accent-yellow-100: #fffef7;
+  --color-accent-yellow-600: #E6CF00;
+  --color-accent-yellow-400: #FFF066;
+  --color-accent-yellow-300: #FFF9C2;
+  --color-accent-yellow-200: #FFFCE0;
+  --color-accent-yellow-100: #FFFEF7;
 }
+
 @layer base {
   html {
     font-family: var(--font-ibm), sans-serif;
   }
 }
+

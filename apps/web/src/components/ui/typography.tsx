@@ -1,8 +1,6 @@
 'use client';
-
 import React from 'react';
 import clsx from 'clsx';
-
 type Variant =
   | 'h1'
   | 'h2'
@@ -14,14 +12,12 @@ type Variant =
   | 'body'
   | 'medium'
   | 'small';
-
 interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
   variant?: Variant;
   as?: keyof HTMLElementTagNameMap;
   className?: string;
   children: React.ReactNode;
 }
-
 const variantClasses: Record<Variant, string> = {
   h1: 'text-[32px] leading-[42px] font-semibold md:text-[42px] md:leading-[52px]',
   h2: 'text-[28px] leading-[36px] font-semibold md:text-[36px] md:leading-[44px]',
@@ -35,7 +31,6 @@ const variantClasses: Record<Variant, string> = {
   medium: 'text-[14px] leading-[20px] font-normal',
   small: 'text-[12px] leading-[18px] font-normal',
 };
-
 export const Typography = ({
   variant = 'p',
   as = 'p',
@@ -44,7 +39,6 @@ export const Typography = ({
   ...props
 }: TypographyProps) => {
   const Tag = as;
-
   return (
     <Tag
       className={clsx('font-sans', variantClasses[variant], className)}
