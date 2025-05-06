@@ -13,7 +13,7 @@ export class ReturnsResolver {
   }
 
   @Query(() => [TaxReturn], { name: 'getTaxReturns' })
-  getTaxReturns() {
-    return this.returnsService.findAll();
+  getTaxReturns(@Args('userId') userId: string) {
+    return this.returnsService.findAll(userId);
   }
 }

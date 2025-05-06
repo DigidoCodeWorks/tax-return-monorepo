@@ -120,9 +120,11 @@ export class VehicleAllowance extends Model {
   @Field()
   type: string;
 
+  @Column({ type: DataType.STRING })
   @Field()
   name: string;
 
+  @Column({ type: DataType.INTEGER })
   @Field()
   amount: number;
 }

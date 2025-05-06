@@ -1,5 +1,5 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { TaxReturn, TaxReturnInput } from '../entities/return.model';
+import { TaxReturn, TaxReturnInput, TaxReturnUpdateInput } from '../entities/return.model';
 import { ReturnsService } from '../returns.service';
 
 @Resolver(() => TaxReturn)
@@ -10,9 +10,13 @@ export class ReturnsMutation {
   async createTaxReturn(
     @Args('input') input: TaxReturnInput,
   ): Promise<TaxReturn> {
-    console.log(input);
     return this.taxReturnService.createTaxReturn(input);
   }
 
-
+  @Mutation(() => TaxReturn)
+  async updateTaxReturn(
+    @Args('input') input: TaxReturnUpdateInput,
+  ): Promise<TaxReturn> {
+    return this.taxReturnService.updateTaxReturn(input);
+  }
 }
