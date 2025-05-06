@@ -1,0 +1,54 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/coderabbitai/coderabbit-docs/refs/heads/main/static/schema/schema.v2.json
+language: 'en'
+early_access: true
+
+reviews:
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  auto_title_instructions: 'A conventional commit compliant PR title with subject (fix, feat, ci, etc.) that is descriptive for a generated changelog'
+
+  path_filters:
+    - '!charts/**'
+    - '!**/gen/fetch/**'
+    - '!**/dist/**'
+
+  path_instructions:
+    - path: '.github/**/*'
+      instructions: |
+        Confirm that the code adheres to the following:
+        - GitHub Actions workflows use 'arc-shared' as the valid runner for self-hosted ARC runners.
+        - CI pipelines are efficient, using appropriate caching strategies and minimal resource consumption.
+        - Reusable workflows and composite actions are properly structured for reusability.
+        - Dependency management workflows meet security requirements.
+        - Note: 'runs-on: arc-shared' is valid for our self-hosted runner configuration, despite standard linting warnings.
+
+    - path: 'apps/**/*'
+      instructions: |
+        Confirm that the code adheres to the following:
+        - Next.js best practices, including file structure, API routes, and static generation methods.
+        - Efficient state management and server-side rendering techniques.
+        - TypeScript is used effectively for component and utility type safety.
+        - Prettier formatting is enforced: single quotes, no semicolons, arrow parens, and trailing commas.
+        - ESLint configuration follows Nx base rules and encourages best practices through warnings, not hard errors.
+        - Avoid disabling ESLint/Prettier rules without justification and team approval.
+        - Any new code standard should ideally be enforceable via lint rules, even custom ones, and discussed in discipline meetings.
+
+    - path: '**/*.{ts,tsx,js,jsx}'
+      instructions: |
+        Ensure that formatting and code style comply with project standards:
+        - Prettier: single quotes, no semicolons, arrow parens, and trailing commas.
+        - ESLint: based on Nx configuration; allows warnings to guide best practices.
+        - Avoid unnecessary rule overrides or disabling linters.
+        - New patterns or conventions should be accompanied by enforceable rules and discussed with the team.
+
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - 'main'
+
+chat:
+  auto_reply: true
