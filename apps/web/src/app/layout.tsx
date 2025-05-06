@@ -1,4 +1,5 @@
 import './global.css';
+import { ibmPlexSans } from '@/lib/fonts'; // or wherever you saved it
 
 export const metadata = {
   title: 'Welcome to web',
@@ -11,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={ibmPlexSans.variable}>
       <body>{children}</body>
     </html>
   );
