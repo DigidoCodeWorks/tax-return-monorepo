@@ -10,6 +10,7 @@ import {
   Column,
   Table,
   HasOne,
+  Unique,
 } from 'sequelize-typescript';
 
 @ObjectType()
@@ -21,8 +22,9 @@ export class TaxReturn extends Model {
   @Field()
   override id: string;
 
-  @Column({ type: DataType.INTEGER })
+  @Unique({ name: 'year_userId', msg: 'Tax return already exists for given year' })
   @Field()
+  @Column({ type: DataType.INTEGER })
   year: number;
 
   @Column({ type: DataType.STRING })
