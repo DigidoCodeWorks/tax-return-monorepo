@@ -84,6 +84,7 @@ import { User } from './users/entities/user.entity';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       graphiql: true,
+      introspection:true,
       autoSchemaFile: join(__dirname, 'schema.gql'),
     }),
   ],
