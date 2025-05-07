@@ -1,4 +1,4 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   BelongsTo,
   Column,
@@ -11,7 +11,6 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { TaxReturn } from './return.model';
-import { IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 @ObjectType()
 @Table({ tableName: 'revenues' })
@@ -42,20 +41,7 @@ export class Revenue extends Model {
   pensionPayments: PensionPayment[];
 }
 
-@InputType()
-export class RevenueInput {
-  @Field({ nullable: true })
-  taxReturnId?: string;
 
-  @Field(() => [WageIncomeInput])
-  wageIncomes: WageIncomeInput[];
-
-  @Field(() => [VehicleAllowanceInput])
-  vehicleAllowances: VehicleAllowanceInput[];
-
-  @Field(() => [PensionPaymentInput])
-  pensionPayments: PensionPaymentInput[];
-}
 
 @ObjectType()
 @Table({ tableName: 'wage_incomes' })
@@ -86,24 +72,7 @@ export class WageIncome extends Model {
   salaryAmount: number;
 }
 
-@InputType()
-export class WageIncomeInput {
-  @Field({ nullable: true })
-  @IsOptional()
-  id?: string;
 
-  @Field()
-  @IsString()
-  ssn: string;
-
-  @Field()
-  @IsString()
-  name: string;
-
-  @Field()
-  @IsNumber()
-  salaryAmount: number;
-}
 
 @ObjectType()
 @Table({ tableName: 'vehicle_allowances' })
@@ -134,25 +103,7 @@ export class VehicleAllowance extends Model {
   amount: number;
 }
 
-@InputType()
-export class VehicleAllowanceInput {
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsUUID('4')
-  id?: string;
 
-  @Field()
-  @IsString()
-  type: string;
-
-  @Field()
-  @IsString()
-  name: string;
-
-  @Field()
-  @IsNumber()
-  amount: number;
-}
 
 @ObjectType()
 @Table({ tableName: 'pension_payments' })
@@ -183,22 +134,3 @@ export class PensionPayment extends Model {
   amount: number;
 }
 
-@InputType()
-export class PensionPaymentInput {
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsUUID('4')
-  id?: string;
-
-  @Field()
-  @IsString()
-  type: string;
-
-  @Field()
-  @IsString()
-  name: string;
-
-  @Field()
-  @IsNumber()
-  amount: number;
-}

@@ -1,7 +1,5 @@
-import { ObjectType, Field, InputType } from '@nestjs/graphql';
-import { Assets, AssetsInput } from './assets.model';
-import { DebtAndExpenses, DebtAndExpensesInput } from './debt.model';
-import { Revenue, RevenueInput } from './revenue.model';
+import { ObjectType, Field } from '@nestjs/graphql';
+
 import {
   Model,
   PrimaryKey,
@@ -13,16 +11,9 @@ import {
   Unique,
 } from 'sequelize-typescript';
 
-import {
-  IsInt,
-  Min,
-  IsString,
-  IsOptional,
-  ValidateNested,
-  IsUUID,
-  Max,
-} from 'class-validator';
-import { Type } from 'class-transformer';
+import { DebtAndExpenses } from './debt.model';
+import { Revenue } from './revenue.model';
+import { Assets } from './assets.model';
 
 @ObjectType()
 @Table({ tableName: 'tax_returns' })
@@ -61,74 +52,4 @@ export class TaxReturn extends Model {
   @HasOne(() => DebtAndExpenses)
   @Field(() => DebtAndExpenses, { nullable: true })
   debtAndExpenses?: DebtAndExpenses;
-}
-
-@InputType()
-export class TaxReturnInput {
-  @IsInt()
-  @Min(1900)
-  @Field()
-  year: number;
-
-  @IsString()
-  @Field()
-  userId: string;
-
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsInt()
-  @Min(0)
-  @Max(10)
-  lastStep?: number;
-
-  @Field(() => RevenueInput, { nullable: true })
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => RevenueInput)
-  revenue?: RevenueInput;
-
-  @Field(() => AssetsInput, { nullable: true })
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => AssetsInput)
-  assets?: AssetsInput;
-
-  @Field(() => DebtAndExpensesInput, { nullable: true })
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => DebtAndExpensesInput)
-  debtAndExpenses?: DebtAndExpensesInput;
-}
-
-@InputType()
-export class TaxReturnUpdateInput {
-  @Field({ nullable: false })
-  @IsString()
-  @IsUUID(4)
-  id: string;
-
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsInt()
-  @Min(0)
-  @Max(10)
-  lastStep?: number;
-
-  @Field(() => RevenueInput, { nullable: true })
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => RevenueInput)
-  revenue?: RevenueInput;
-
-  @Field(() => AssetsInput, { nullable: true })
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => AssetsInput)
-  assets?: AssetsInput;
-
-  @Field(() => DebtAndExpensesInput, { nullable: true })
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => DebtAndExpensesInput)
-  debtAndExpenses?: DebtAndExpensesInput;
 }
