@@ -11,6 +11,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { TaxReturn } from './return.model';
+import { IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 @ObjectType()
 @Table({ tableName: 'assets' })
@@ -77,15 +78,20 @@ export class DomesticRealEstate extends Model {
 @InputType()
 export class DomesticRealEstateInput {
   @Field({ nullable: true })
+  @IsOptional()
+  @IsUUID('4')
   id?: string;
 
   @Field()
+  @IsString()
   landlineNumber: string;
 
   @Field()
+  @IsString()
   address: string;
 
   @Field()
+  @IsNumber()
   realEstateValuation: number;
 }
 
@@ -121,14 +127,19 @@ export class Automobile extends Model {
 @InputType()
 export class AutomobileInput {
   @Field({ nullable: true })
+  @IsOptional()
+  @IsUUID('4')
   id?: string;
 
   @Field()
+  @IsString()
   plateNumber: string;
 
   @Field()
+  @IsNumber()
   yearOfPurchase: number;
 
   @Field()
+  @IsNumber()
   purchasePrice: number;
 }
