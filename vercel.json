@@ -1,7 +1,3 @@
 {
-  "projects": {
-    "tax-return-monorepo-web": {
-      "rootDirectory": "apps/web"
-    }
-  }
+  "rootDirectory": "apps/web"
 }
