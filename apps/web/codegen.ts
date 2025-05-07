@@ -1,10 +1,11 @@
+import 'dotenv/config';
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: 'http://localhost:3000/graphql',
-  documents: ['lib/graphql/**/*.ts'],
+  schema: process.env.GRAPHQL_ENDPOINT,
+  documents: ['./src/lib/graphql/**/*.ts'],
   generates: {
-    'lib/graphql/generated/': {
+    './src/lib/graphql/generated/': {
       preset: 'client',
       plugins: [],
     },
