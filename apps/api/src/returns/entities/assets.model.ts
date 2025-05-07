@@ -128,6 +128,7 @@ export class Automobile extends Model {
 export class AutomobileInput {
   @Field({ nullable: true })
   @IsOptional()
+  @IsUUID('4')
   id?: string;
 
   @Field()

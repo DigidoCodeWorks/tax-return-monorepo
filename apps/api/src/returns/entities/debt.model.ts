@@ -197,7 +197,7 @@ export class OtherDebt extends Model {
 export class OtherDebtInput {
   @Field({ nullable: true })
   @IsOptional()
-  @IsUUID()
+  @IsUUID("4")
   id?: string;
 
   @Field()
