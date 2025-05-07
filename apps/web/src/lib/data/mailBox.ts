@@ -2,6 +2,7 @@ import GovernmentIcon from '@/components/icons/GovernmentIcon';
 import HusnaedisIcon from '@/components/icons/HusnaedisIcon';
 import Kopavogsbaer from '@/components/icons/Kopavogsbaer';
 import RannosoknIsland from '@/components/icons/RannosoknIsland';
+import SkatturinIcon from '@/components/icons/SkatturinIcon';
 import { FC } from 'react';
 
 export const mailboxItems = [
@@ -39,13 +40,13 @@ export const mailboxItems = [
     title: 'Skatturinn',
     subject: 'Inneignartilbúð',
     date: '05.09.2024',
-    icon: GovernmentIcon,
+    icon: SkatturinIcon,
   },
   {
     title: 'Skatturinn',
     subject: 'Niðurstaða álagningar 2024',
     date: '11.07.2024',
-    icon: GovernmentIcon,
+    icon: SkatturinIcon,
   },
 ];
 
