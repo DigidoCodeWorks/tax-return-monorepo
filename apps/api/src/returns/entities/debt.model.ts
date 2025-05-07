@@ -44,11 +44,11 @@ export class DebtAndExpenses extends Model {
 
 @InputType()
 export class DebtAndExpensesInput {
-  @Field(() => [ResidentialPropertyInterestExpenseInput])
-  residentialInterestExpenses: ResidentialPropertyInterestExpenseInput[];
+  @Field(() => [ResidentialPropertyInterestExpenseInput], {nullable: true})
+  residentialInterestExpenses?: ResidentialPropertyInterestExpenseInput[];
 
-  @Field(() => [OtherDebtInput])
-  otherDebts: OtherDebtInput[];
+  @Field(() => [OtherDebtInput], {nullable: true})
+  otherDebts?: OtherDebtInput[];
 }
 
 
@@ -96,9 +96,9 @@ export class ResidentialPropertyInterestExpense extends Model {
   @Field()
   loanTermYears: number;
 
-  @Column({ type: DataType.INTEGER })
+  @Column({ type: DataType.INTEGER },)
   @Field()
-  totalPaymentsForYear: number;
+  totalAnnualPayments: number;
 
   @Column({ type: DataType.INTEGER })
   @Field()
@@ -140,7 +140,7 @@ export class ResidentialPropertyInterestExpenseInput {
   loanTermYears: number;
 
   @Field()
-  totalPaymentsForYear: number;
+  totalAnnualPayments: number;
 
   @Field()
   faceValue: number;
