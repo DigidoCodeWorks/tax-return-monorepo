@@ -9,6 +9,7 @@ import {
 
 export async function fetchTaxReturnsByUserId(userId: string | undefined) {
   try {
+    console.log('[FETCH] fetching tax returns for userId:', userId);
     if (!userId) {
       console.warn('userId is undefined. Returning null.');
       return null;
@@ -19,7 +20,7 @@ export async function fetchTaxReturnsByUserId(userId: string | undefined) {
       GetTaxReturnsQuery,
       GetTaxReturnsQueryVariables
     >(GET_TAX_RETURNS, variables);
-    console.log(userId, 'userIDDD');
+    console.log(getTaxReturns, userId, 'userIDDD');
     return getTaxReturns;
   } catch (error) {
     console.error('Error fetching tax returns:', error);

@@ -68,6 +68,7 @@ export default function FormSection({
         'kaupverð',
         'realEstateValuation',
         'purchasePrice',
+        'outstandingDebt',
       ].includes(key),
     );
 
