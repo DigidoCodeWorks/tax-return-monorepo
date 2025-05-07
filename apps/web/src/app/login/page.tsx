@@ -5,14 +5,29 @@ import { Button } from '@/components/ui/Button';
 import { Typography } from '@/components/ui/typography';
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { loginWithHardcodedPhone } from '@/lib/actions/loginWithHardcodedPhone';
 
 export default function LoginPage() {
   const [phone, setPhone] = useState('');
   const [remember, setRemember] = useState(true);
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const user = await loginWithHardcodedPhone();
+
+    if (user?.id) {
+      router.push(`/tax-form/${user.id}/step-1`);
+    } else {
+      console.error('User not found');
+    }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] px-4">
-      <div className="ml-auto mr-auto w-1/3">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4">
+      <div>
         <div className="relative max-w-md rounded-lg border border-primary-blue-200 bg-white pt-[57px] pb-[41px] px-[33px]">
           <div className="absolute bg-white top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 flex justify-center mb-6 p-[15px]">
             <DotLogoIcon />
@@ -37,20 +52,26 @@ export default function LoginPage() {
             </Typography>
           </div>
 
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="mt-10 space-y-6"
-          >
+          <form onSubmit={handleSubmit} className="mt-10 space-y-6">
             <div className="relative w-full">
               <input
                 type="text"
+                inputMode="numeric"
+                maxLength={8} // 7 digits + 1 hyphen
                 id="phone"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {
+                  let value = e.target.value.replace(/\D/g, '').slice(0, 7); // remove non-digits & trim to 7
+                  if (value.length > 3) {
+                    value = `${value.slice(0, 3)}-${value.slice(3)}`;
+                  }
+                  setPhone(value);
+                }}
                 placeholder=" "
                 className="peer w-full rounded-md bg-[#F6F9FC] border border-[#D0E3FC] px-6 pt-6 pb-2 text-[24px] font-semibold text-primary-dark-400 placeholder-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0061FF]"
                 aria-label="Símanúmer"
               />
+
               <Typography
                 as="label"
                 htmlFor="phone"
@@ -96,9 +117,8 @@ export default function LoginPage() {
             <Button variant="outlined">Skilríki á korti</Button>
           </div>
         </div>
-
         <div
-          className="flex justify-between items-center mt-5 pointer-events-none"
+          className="flex justify-between items-center mt-5 pointer-events-none "
           role="navigation"
           aria-label="Footer links"
         >

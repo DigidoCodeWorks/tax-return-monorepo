@@ -16,12 +16,17 @@ export default function Header() {
   const pathname = usePathname();
 
   const isBlueBg = pathname === '/' || pathname.startsWith('/tax-returns');
+  const isHidden = pathname.startsWith('/login');
   const isInfoPage = pathname.startsWith('/information');
   const isTaxFormPage = pathname.startsWith('/tax-form');
 
   return (
     <header
-      className={clsx('w-full', isBlueBg ? 'bg-primary-blue-100' : 'bg-white')}
+      className={clsx(
+        'w-full',
+        isHidden ? 'hidden' : 'block',
+        isBlueBg ? 'bg-primary-blue-100' : 'bg-white',
+      )}
     >
       <div className="relative flex items-center justify-between px-12 py-8">
         <div className="flex items-center gap-16">
