@@ -88,3 +88,83 @@ export const GET_USER_BY_PHONE = gql`
     }
   }
 `;
+
+export const GET_TAX_RETURN_INCOME = gql`
+  query GetTaxReturnIncome($id: String!) {
+    getTaxReturn(id: $id) {
+      id
+      revenue {
+        wageIncomes {
+          id
+          ssn
+          name
+          salaryAmount
+        }
+        pensionPayments {
+          id
+          type
+          name
+          amount
+        }
+        vehicleAllowances {
+          id
+          type
+          name
+          amount
+        }
+      }
+    }
+  }
+`;
+
+export const GET_TAX_RETURN_ASSETS = gql`
+  query GetTaxReturnAssets($id: String!) {
+    getTaxReturn(id: $id) {
+      id
+      assets {
+        domesticRealEstate {
+          id
+          landlineNumber
+          address
+          realEstateValuation
+        }
+        automobiles {
+          id
+          plateNumber
+          yearOfPurchase
+          purchasePrice
+        }
+      }
+    }
+  }
+`;
+
+export const GET_TAX_RETURN_DEBT_AND_EXPENSES = gql`
+  query GetTaxReturnDebtAndExpenses($id: String!) {
+    getTaxReturn(id: $id) {
+      id
+      debtAndExpenses {
+        residentialInterestExpenses {
+          id
+          yearOfPurchase
+          location
+          lender
+          lendersIdNumber
+          loanNumber
+          borrowingDate
+          loanTermYears
+          totalAnnualPayments
+          faceValue
+          interestExpenses
+          outstandingDebt
+        }
+        otherDebts {
+          id
+          title
+          interestExpenses
+          outstandingDebt
+        }
+      }
+    }
+  }
+`;
