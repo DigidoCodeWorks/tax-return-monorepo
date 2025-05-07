@@ -20,6 +20,7 @@ import {
   IsOptional,
   ValidateNested,
   IsUUID,
+  Max,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -39,6 +40,10 @@ export class TaxReturn extends Model {
   @Field()
   @Column({ type: DataType.INTEGER })
   year: number;
+
+  @Field({ nullable: true })
+  @Column({ type: DataType.INTEGER })
+  lastStep?: number;
 
   @Unique('year_userId')
   @Column({ type: DataType.STRING })
@@ -69,6 +74,13 @@ export class TaxReturnInput {
   @Field()
   userId: string;
 
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  @Max(10)
+  lastStep?: number;
+
   @Field(() => RevenueInput, { nullable: true })
   @IsOptional()
   @ValidateNested()
@@ -94,6 +106,13 @@ export class TaxReturnUpdateInput {
   @IsString()
   @IsUUID(4)
   id: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  @Max(10)
+  lastStep?: number;
 
   @Field(() => RevenueInput, { nullable: true })
   @IsOptional()

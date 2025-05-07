@@ -61,9 +61,7 @@ import { User } from './users/entities/user.entity';
       ],
       synchronize: true,
       autoLoadModels: true,
-      sync: {
-        alter: true,
-      },
+      
     }),
     SequelizeModule.forRoot({
       name: 'registryConnection',
@@ -82,9 +80,6 @@ import { User } from './users/entities/user.entity';
       models: [User],
       synchronize: true,
       autoLoadModels: true,
-      sync: {
-        alter: true,
-      },
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,

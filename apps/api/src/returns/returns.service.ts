@@ -149,6 +149,11 @@ export class ReturnsService {
         throw new NotFoundException(`TaxReturn ${taxReturnIn.id} not found`);
       }
 
+      if (taxReturnIn.lastStep) {
+        existing.lastStep = taxReturnIn.lastStep;
+        await existing.save({ transaction });
+      }
+
       // 3) delete & recreate Revenue + its children
       if (taxReturnIn.revenue) {
         if (existing.revenue) {
