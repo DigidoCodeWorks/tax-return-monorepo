@@ -3,7 +3,6 @@ import DotIcon from '@/components/icons/DotIcon';
 import DotIconRed from '@/components/icons/DotIconRed';
 import OpenClick from '@/components/icons/OpenClick';
 import SkatturinBigIcon from '@/components/icons/SkatturinBigIcon';
-import SkatturinIcon from '@/components/icons/SkatturinIcon';
 import { TaxReturnsSidebarMobile } from '@/components/layout/TaxReturnSidebarMobile';
 import { TaxReturnsSidebarDesktop } from '@/components/layout/TaxReturnsSidebarDesktop';
 import { Typography } from '@/components/ui/typography';
