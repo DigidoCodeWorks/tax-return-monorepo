@@ -60,7 +60,7 @@ import { User } from './users/entities/user.entity';
         Assets,
       ],
       sync:{
-        alter:true
+        alter:true,
       },
       synchronize: true,
       autoLoadModels: true,
