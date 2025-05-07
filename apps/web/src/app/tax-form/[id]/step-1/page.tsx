@@ -1,9 +1,7 @@
 import DocumentIcon from '@/components/icons/DocumentIcon';
 import FormFooter from '@/components/layout/FormFooter/FormFooter';
-import { Button } from '@/components/ui/Button';
 import { Typography } from '@/components/ui/typography';
 import { stepMetadata } from '@/lib/metadata';
-import { ArrowRight } from 'lucide-react';
 export const metadata = stepMetadata[1];
 
 export default function TaxReturnStep1Page() {
