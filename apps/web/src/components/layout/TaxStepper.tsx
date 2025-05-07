@@ -1,10 +1,12 @@
 'use client';
 
-import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
+import { Check } from 'lucide-react';
+import clsx from 'clsx';
+import { Typography } from '../ui/typography';
 
 const steps = [
-  'Almennar upplýsingar',
+  'Gagnaöflun',
   'Tekjur ársins 2024',
   'Fjármagnstekjur ársins 2024',
   'Eignir í árslok 2024',
@@ -14,39 +16,63 @@ const steps = [
 
 export default function TaxStepper() {
   const pathname = usePathname();
-
-  // Extract step number from URL (e.g., /tax-returns/[id]/step-3)
   const match = pathname.match(/step-(\d+)/);
   const currentStep = match ? parseInt(match[1], 10) : 1;
 
   return (
-    <ol className="space-y-6 text-sm text-gray-700">
-      {steps.map((label, i) => {
-        const step = i + 1;
-        const isActive = step === currentStep;
-        const isComplete = step < currentStep;
+    <div className="md:flex gap-4  w-[300px] pl-12 pr-6 py-20">
+      {/* Dots column */}
+      <div className="flex flex-col items-center pt-2 gap-y-[36px] relative">
+        {steps.map((_, i) => {
+          const step = i + 1;
+          const isActive = step === currentStep;
+          const isComplete = step < currentStep;
 
-        return (
-          <li key={label} className="flex items-start gap-2">
-            <div
-              className={clsx(
-                'w-6 h-6 rounded-full flex items-center justify-center font-medium border',
-                {
-                  'bg-blue-700 text-white border-blue-700': isActive,
-                  'bg-blue-100 text-blue-700 border-blue-300': isComplete,
-                  'bg-white text-gray-400 border-gray-300':
-                    !isActive && !isComplete,
-                },
-              )}
-            >
-              {step}
+          return (
+            <div key={step} className="relative flex flex-col items-center">
+              {/* line to next dot */}
+
+              {/* dot */}
+              <div
+                className={clsx(
+                  'flex items-center justify-center text-white text-xs font-bold rounded-full',
+                  {
+                    'bg-secondary-purple-400 w-6 h-6': isActive || isComplete,
+                    'bg-primary-dark-200 w-6 h-6': !isActive && !isComplete,
+                  },
+                )}
+              >
+                {isComplete ? (
+                  <Check className="w-4 h-4" />
+                ) : isActive ? (
+                  step
+                ) : null}
+              </div>
             </div>
-            <span className={clsx({ 'font-semibold text-black': isActive })}>
+          );
+        })}
+      </div>
+
+      {/* Labels column */}
+      <div className="flex flex-col pt-2 gap-y-10 text-sm">
+        {steps.map((label, i) => {
+          const step = i + 1;
+          const isActive = step === currentStep;
+
+          return (
+            <Typography
+              key={label}
+              variant="medium"
+              className={clsx({
+                'font-semibold text-primary-dark-400': isActive,
+                'text-primary-dark-300': !isActive,
+              })}
+            >
               {label}
-            </span>
-          </li>
-        );
-      })}
-    </ol>
+            </Typography>
+          );
+        })}
+      </div>
+    </div>
   );
 }
