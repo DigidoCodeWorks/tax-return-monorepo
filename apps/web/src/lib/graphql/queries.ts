@@ -60,7 +60,7 @@ export const GET_TAX_RETURN = gql`
           loanNumber
           borrowingDate
           loanTermYears
-          totalPaymentsForYear
+          totalAnnualPayments
           faceValue
           interestExpenses
           outstandingDebt
