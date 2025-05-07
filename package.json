@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-  "vercel-build": "nx reset && nx build web --prod"
-},
+    "vercel-build": "nx reset && nx build web --prod"
+  },
   "private": true,
   "dependencies": {
     "@apollo/server": "^4.12.0",
@@ -84,5 +84,6 @@
   },
   "workspaces": [
     "apps/*"
-  ]
+  ],
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
