@@ -37,15 +37,15 @@ export class TaxReturn extends Model {
 
   @HasOne(() => Revenue)
   @Field(() => Revenue, {nullable: true })
-  revenue: Revenue;
+  revenue?: Revenue;
 
   @HasOne(() => Assets)
   @Field(() => Assets, {nullable: true })
-  assets: Assets;
+  assets?: Assets;
 
   @HasOne(() => DebtAndExpenses)
   @Field(() => DebtAndExpenses, {nullable: true })
-  debtAndExpenses: DebtAndExpenses;
+  debtAndExpenses?: DebtAndExpenses;
 }
 
 @InputType()
@@ -57,13 +57,13 @@ export class TaxReturnInput {
   userId: string;
 
   @Field(() => RevenueInput, {nullable: true })
-  revenue: RevenueInput;
+  revenue?: RevenueInput;
 
   @Field(() => AssetsInput, {nullable: true })
-  assets: AssetsInput;
+  assets?: AssetsInput;
 
   @Field(() => DebtAndExpensesInput, {nullable: true })
-  debtAndExpenses: DebtAndExpensesInput;
+  debtAndExpenses?: DebtAndExpensesInput;
 }
 
 @InputType()

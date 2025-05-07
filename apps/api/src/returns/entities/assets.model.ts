@@ -17,11 +17,11 @@ import { TaxReturn } from './return.model';
 export class Assets extends Model {
   @PrimaryKey
   @Default(DataType.UUIDV4)
-  @Column({ type: DataType.UUIDV4 })
+  @Column({ type: DataType.UUID })
   override id: string;
 
   @ForeignKey(() => TaxReturn)
-  @Column({ type: DataType.UUIDV4 })
+  @Column({ type: DataType.UUID })
   taxReturnId: string;
 
   @BelongsTo(() => TaxReturn)
