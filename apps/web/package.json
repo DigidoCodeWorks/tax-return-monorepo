@@ -1,5 +1,10 @@
 {
   "name": "@tax-return-app/web",
   "version": "0.0.1",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "next": "~15.3.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  }
 }
