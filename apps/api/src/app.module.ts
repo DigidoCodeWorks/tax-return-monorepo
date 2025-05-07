@@ -59,6 +59,9 @@ import { User } from './users/entities/user.entity';
         OtherDebt,
         Assets,
       ],
+      sync:{
+        alter:true,
+      },
       synchronize: true,
       autoLoadModels: true,
       
