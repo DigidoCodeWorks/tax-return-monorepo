@@ -17,6 +17,7 @@ type FormSectionprops = {
   labels: string[];
   initialData?: GenericRow[];
   editableFields?: string[];
+  allowAddRow?: boolean;
 };
 
 export default function FormSection({
@@ -25,6 +26,7 @@ export default function FormSection({
   labels,
   initialData = [],
   editableFields = [],
+  allowAddRow = false,
 }: FormSectionprops) {
   const [rows, setRows] = useState<GenericRow[]>(() => {
     if (initialData.length > 0) {
@@ -124,12 +126,14 @@ export default function FormSection({
       ))}
 
       <div className="flex justify-between pt-4">
-        <div>
-          <Button variant="outlined" onClick={addRow}>
-            Ný lína +
-          </Button>
-        </div>
-        <div>
+        {allowAddRow && (
+          <div>
+            <Button variant="outlined" onClick={addRow}>
+              Ný lína +
+            </Button>
+          </div>
+        )}
+        <div className="ml-auto">
           <Typography
             variant="medium"
             className="text-primary-dark-400 whitespace-nowrap font-semibold"

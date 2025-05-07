@@ -1,8 +1,26 @@
 import FormSection from '@/components/forms/FormSection';
 import FormFooter from '@/components/layout/FormFooter/FormFooter';
 import { Typography } from '@/components/ui/typography';
+import { fetchTaxReturnIncome } from '@/lib/actions/fetchTaxReturnIncome';
+import { fetchTaxReturnsByUserId } from '@/lib/actions/fetchTaxReturns';
 
-export default function IncomeStepPage() {
+interface Props {
+  params: { id: string };
+}
+
+export default async function IncomeStepPage({ params }: Props) {
+  const id = params.id;
+  const taxReturns = await fetchTaxReturnsByUserId(id);
+  const taxReturn = await fetchTaxReturnIncome(
+    taxReturns?.[taxReturns?.length - 1]?.id,
+  );
+
+  console.log(taxReturn, 'return');
+  if (!taxReturn) {
+    console.error(`No tax return found for ID: ${params.id}`);
+    return null;
+  }
+
   const initialData_21 = [
     {
       id: '1',
@@ -58,6 +76,7 @@ export default function IncomeStepPage() {
         labels={['Kennitala', 'Nafn launagreiðanda', 'Launafjárhæð']}
         initialData={initialData_21}
         editableFields={['amount']}
+        allowAddRow={true}
       />
       <FormSection
         title="2.2 Ökutækjastyrkur. Dagpeningar. Hlunnindi"
@@ -65,6 +84,7 @@ export default function IncomeStepPage() {
         labels={['Tegund', 'Nafn launagreiðanda', 'Upphæð']}
         initialData={initialData_22}
         editableFields={['amount']}
+        allowAddRow={true}
       />
       <FormSection
         title="2.3 Lífeyrisgreiðslur. Tryggingastofnun. O.fl."
@@ -72,6 +92,7 @@ export default function IncomeStepPage() {
         labels={['Tegund', 'Nafn launagreiðanda', 'Upphæð']}
         initialData={initialData_23}
         editableFields={['amount']}
+        allowAddRow={true}
       />
 
       <FormFooter />
