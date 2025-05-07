@@ -17,6 +17,6 @@ export async function fetchUserByPhone(phone: string) {
     return getUserByPhone;
   } catch (error) {
     console.error('Error fetching user by phone:', error);
-    throw error;
+    return null;
   }
 }

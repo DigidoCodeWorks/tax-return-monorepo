@@ -7,8 +7,12 @@ import {
   GetTaxReturnQueryVariables,
 } from '../graphql/generated/graphql';
 
-export async function fetchTaxReturnById(id: string) {
+export async function fetchTaxReturnById(id: string | undefined) {
   try {
+    if (!id) {
+      console.warn('ID is undefined. Returning null.');
+      return null;
+    }
     const variables: GetTaxReturnQueryVariables = { id };
 
     const { getTaxReturn } = await graphqlClient.request<

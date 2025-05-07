@@ -7,8 +7,12 @@ import {
   GetTaxReturnsQueryVariables,
 } from '../graphql/generated/graphql';
 
-export async function fetchTaxReturnsByUserId(userId: string) {
+export async function fetchTaxReturnsByUserId(userId: string | undefined) {
   try {
+    if (!userId) {
+      console.warn('userId is undefined. Returning null.');
+      return null;
+    }
     const variables: GetTaxReturnsQueryVariables = { userId };
 
     const { getTaxReturns } = await graphqlClient.request<
@@ -19,6 +23,6 @@ export async function fetchTaxReturnsByUserId(userId: string) {
     return getTaxReturns;
   } catch (error) {
     console.error('Error fetching tax returns:', error);
-    throw new Error('Unable to fetch tax returns. Please try again later.');
+    return null;
   }
 }
