@@ -5,18 +5,18 @@ import { fetchTaxReturnsByUserId } from '@/lib/actions/fetchTaxReturns';
 import { fetchTaxReturnAssets } from '@/lib/actions/fetchTaxReturnAssets';
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function AssetsStepPage({ params }: Props) {
-  const id = params.id;
+  const { id } = await params;
   const taxReturns = await fetchTaxReturnsByUserId(id);
   const taxReturn = await fetchTaxReturnAssets(
     taxReturns?.[taxReturns?.length - 1]?.id,
   );
 
   if (!taxReturn) {
-    console.error(`No tax return found for ID: ${params.id}`);
+    console.error(`No tax return found for ID: ${id}`);
     return null;
   }
 

@@ -9,6 +9,8 @@ import {
 
 export async function fetchTaxReturnDebt(id: string | undefined) {
   try {
+    console.log(id, 'id');
+    console.log(id, 'id');
     if (!id) {
       console.warn('ID is undefined. Returning null.');
       return null;
@@ -19,7 +21,6 @@ export async function fetchTaxReturnDebt(id: string | undefined) {
       GetTaxReturnDebtAndExpensesQuery,
       GetTaxReturnDebtAndExpensesQueryVariables
     >(GET_TAX_RETURN_DEBT_AND_EXPENSES, variables);
-
     return getTaxReturn?.debtAndExpenses ?? null;
   } catch (error) {
     console.error('Error fetching tax return debt/expenses:', error);
