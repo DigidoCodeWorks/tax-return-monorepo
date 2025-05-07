@@ -1,7 +1,6 @@
 import {
   Field,
   GraphQLISODateTime,
-  InputType,
   ObjectType,
 } from '@nestjs/graphql';
 import {
@@ -16,7 +15,6 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { TaxReturn } from './return.model';
-import { IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 @ObjectType()
 @Table({ tableName: 'debt_and_expenses' })
@@ -43,14 +41,7 @@ export class DebtAndExpenses extends Model {
   otherDebts: OtherDebt[];
 }
 
-@InputType()
-export class DebtAndExpensesInput {
-  @Field(() => [ResidentialPropertyInterestExpenseInput], { nullable: true })
-  residentialInterestExpenses?: ResidentialPropertyInterestExpenseInput[];
 
-  @Field(() => [OtherDebtInput], { nullable: true })
-  otherDebts?: OtherDebtInput[];
-}
 
 @ObjectType()
 @Table({ tableName: 'residential_property_interest_expenses' })
@@ -113,56 +104,7 @@ export class ResidentialPropertyInterestExpense extends Model {
   outstandingDebt: number;
 }
 
-@InputType()
-export class ResidentialPropertyInterestExpenseInput {
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsUUID("4")
-  id?: string;
 
-  @Field()
-  @IsNumber()
-  yearOfPurchase: number;
-
-  @Field()
-  @IsString()
-  location: string;
-
-  @Field()
-  @IsString()
-  lender: string;
-
-  @Field()
-  @IsString()
-  lendersIdNumber: string;
-
-  @Field()
-  @IsString()
-  loanNumber: string;
-
-  @Field(() => GraphQLISODateTime)
-  borrowingDate: Date;
-
-  @Field()
-  @IsNumber()
-  loanTermYears: number;
-
-  @Field()
-  @IsNumber()
-  totalAnnualPayments: number;
-
-  @Field()
-  @IsNumber()
-  faceValue: number;
-
-  @Field()
-  @IsNumber()
-  interestExpenses: number;
-
-  @Field()
-  @IsNumber()
-  outstandingDebt: number;
-}
 
 @ObjectType()
 @Table({ tableName: 'other_debts' })
@@ -193,22 +135,3 @@ export class OtherDebt extends Model {
   outstandingDebt: number;
 }
 
-@InputType()
-export class OtherDebtInput {
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsUUID("4")
-  id?: string;
-
-  @Field()
-  @IsString()
-  title: string;
-
-  @Field()
-  @IsNumber()
-  interestExpenses: number;
-
-  @Field()
-  @IsNumber()
-  outstandingDebt: number;
-}

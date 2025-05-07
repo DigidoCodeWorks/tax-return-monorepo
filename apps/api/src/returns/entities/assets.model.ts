@@ -1,4 +1,4 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   BelongsTo,
   Column,
@@ -11,7 +11,6 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { TaxReturn } from './return.model';
-import { IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 @ObjectType()
 @Table({ tableName: 'assets' })
@@ -37,14 +36,7 @@ export class Assets extends Model {
   automobiles: Automobile[];
 }
 
-@InputType()
-export class AssetsInput {
-  @Field(() => [DomesticRealEstateInput])
-  domesticRealEstate: DomesticRealEstateInput[];
 
-  @Field(() => [AutomobileInput])
-  automobiles: AutomobileInput[];
-}
 
 @ObjectType()
 @Table({ tableName: 'domestic_real_estates' })
@@ -75,25 +67,7 @@ export class DomesticRealEstate extends Model {
   realEstateValuation: number;
 }
 
-@InputType()
-export class DomesticRealEstateInput {
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsUUID('4')
-  id?: string;
 
-  @Field()
-  @IsString()
-  landlineNumber: string;
-
-  @Field()
-  @IsString()
-  address: string;
-
-  @Field()
-  @IsNumber()
-  realEstateValuation: number;
-}
 
 @ObjectType()
 @Table({ tableName: 'automobiles' })
@@ -124,22 +98,3 @@ export class Automobile extends Model {
   purchasePrice: number;
 }
 
-@InputType()
-export class AutomobileInput {
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsUUID('4')
-  id?: string;
-
-  @Field()
-  @IsString()
-  plateNumber: string;
-
-  @Field()
-  @IsNumber()
-  yearOfPurchase: number;
-
-  @Field()
-  @IsNumber()
-  purchasePrice: number;
-}

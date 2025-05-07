@@ -4,26 +4,14 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/sequelize';
-import {
-  TaxReturn,
-  TaxReturnInput,
-  TaxReturnUpdateInput,
-} from './entities/return.model';
-import { Revenue } from './entities/revenue.model';
-import {
-  Assets,
-  Automobile,
-  DomesticRealEstate,
-} from './entities/assets.model';
-import {
-  DebtAndExpenses,
-  OtherDebt,
-  ResidentialPropertyInterestExpense,
-} from './entities/debt.model';
-import { WageIncome } from './entities/revenue.model';
-import { VehicleAllowance } from './entities/revenue.model';
-import { PensionPayment } from './entities/revenue.model';
+
 import { Sequelize } from 'sequelize-typescript';
+import { Assets, DomesticRealEstate, Automobile } from './entities/assets.model';
+import { DebtAndExpenses, ResidentialPropertyInterestExpense, OtherDebt } from './entities/debt.model';
+import { TaxReturn } from './entities/return.model';
+import { Revenue, WageIncome, VehicleAllowance, PensionPayment } from './entities/revenue.model';
+import { TaxReturnInput } from './dto/tax-return.input';
+import { TaxReturnUpdateInput } from './dto/tax-return-update.input';
 
 @Injectable()
 export class ReturnsService {
@@ -35,7 +23,7 @@ export class ReturnsService {
   ) {}
 
   async createTaxReturn(taxReturn: TaxReturnInput): Promise<TaxReturn> {
-    //TODO: Fail if tax return already exists for given year
+    //Fail if tax return already exists for given year
     const existingTaxReturn = await this.taxReturnModel.findOne({
       where: {
         year: taxReturn.year,
