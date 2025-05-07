@@ -6,6 +6,7 @@ import {
   PrimaryKey,
   Table,
   Model,
+  Unique,
 } from 'sequelize-typescript';
 
 @ObjectType()
@@ -30,10 +31,12 @@ export class User extends Model{
   ssn: string;
 
   @Field()
+  @Unique
   @Column({ type: DataType.STRING, allowNull: false })
   email: string;
 
   @Field()
+  @Unique
   @Column({ type: DataType.STRING, allowNull: false })
   phone: string;
 

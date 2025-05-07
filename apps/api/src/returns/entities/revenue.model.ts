@@ -11,6 +11,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { TaxReturn } from './return.model';
+import { IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 @ObjectType()
 @Table({ tableName: 'revenues' })
@@ -88,15 +89,19 @@ export class WageIncome extends Model {
 @InputType()
 export class WageIncomeInput {
   @Field({ nullable: true })
+  @IsOptional()
   id?: string;
 
   @Field()
+  @IsString()
   ssn: string;
 
   @Field()
+  @IsString()
   name: string;
 
   @Field()
+  @IsNumber()
   salaryAmount: number;
 }
 
@@ -132,15 +137,20 @@ export class VehicleAllowance extends Model {
 @InputType()
 export class VehicleAllowanceInput {
   @Field({ nullable: true })
+  @IsOptional()
+  @IsUUID('4')
   id?: string;
 
   @Field()
+  @IsString()
   type: string;
 
   @Field()
+  @IsString()
   name: string;
 
   @Field()
+  @IsNumber()
   amount: number;
 }
 
@@ -176,14 +186,19 @@ export class PensionPayment extends Model {
 @InputType()
 export class PensionPaymentInput {
   @Field({ nullable: true })
+  @IsOptional()
+  @IsUUID('4')
   id?: string;
 
   @Field()
+  @IsString()
   type: string;
 
   @Field()
+  @IsString()
   name: string;
 
   @Field()
+  @IsNumber()
   amount: number;
 }

@@ -16,6 +16,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { TaxReturn } from './return.model';
+import { IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 @ObjectType()
 @Table({ tableName: 'debt_and_expenses' })
@@ -44,13 +45,12 @@ export class DebtAndExpenses extends Model {
 
 @InputType()
 export class DebtAndExpensesInput {
-  @Field(() => [ResidentialPropertyInterestExpenseInput])
-  residentialInterestExpenses: ResidentialPropertyInterestExpenseInput[];
+  @Field(() => [ResidentialPropertyInterestExpenseInput], { nullable: true })
+  residentialInterestExpenses?: ResidentialPropertyInterestExpenseInput[];
 
-  @Field(() => [OtherDebtInput])
-  otherDebts: OtherDebtInput[];
+  @Field(() => [OtherDebtInput], { nullable: true })
+  otherDebts?: OtherDebtInput[];
 }
-
 
 @ObjectType()
 @Table({ tableName: 'residential_property_interest_expenses' })
@@ -98,7 +98,7 @@ export class ResidentialPropertyInterestExpense extends Model {
 
   @Column({ type: DataType.INTEGER })
   @Field()
-  totalPaymentsForYear: number;
+  totalAnnualPayments: number;
 
   @Column({ type: DataType.INTEGER })
   @Field()
@@ -116,39 +116,51 @@ export class ResidentialPropertyInterestExpense extends Model {
 @InputType()
 export class ResidentialPropertyInterestExpenseInput {
   @Field({ nullable: true })
+  @IsOptional()
+  @IsUUID("4")
   id?: string;
 
   @Field()
+  @IsNumber()
   yearOfPurchase: number;
 
   @Field()
+  @IsString()
   location: string;
 
   @Field()
+  @IsString()
   lender: string;
 
   @Field()
+  @IsString()
   lendersIdNumber: string;
 
   @Field()
+  @IsString()
   loanNumber: string;
 
   @Field(() => GraphQLISODateTime)
   borrowingDate: Date;
 
   @Field()
+  @IsNumber()
   loanTermYears: number;
 
   @Field()
-  totalPaymentsForYear: number;
+  @IsNumber()
+  totalAnnualPayments: number;
 
   @Field()
+  @IsNumber()
   faceValue: number;
 
   @Field()
+  @IsNumber()
   interestExpenses: number;
 
   @Field()
+  @IsNumber()
   outstandingDebt: number;
 }
 
@@ -184,15 +196,19 @@ export class OtherDebt extends Model {
 @InputType()
 export class OtherDebtInput {
   @Field({ nullable: true })
+  @IsOptional()
+  @IsUUID("4")
   id?: string;
 
   @Field()
+  @IsString()
   title: string;
 
   @Field()
+  @IsNumber()
   interestExpenses: number;
 
   @Field()
+  @IsNumber()
   outstandingDebt: number;
 }
-

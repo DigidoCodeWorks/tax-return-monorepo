@@ -151,22 +151,25 @@ export class ReturnsService {
 
       // 3) delete & recreate Revenue + its children
       if (taxReturnIn.revenue) {
-        await WageIncome.destroy({
-          where: { revenueId: existing.revenue.id },
-          transaction,
-        });
-        await VehicleAllowance.destroy({
-          where: { revenueId: existing.revenue.id },
-          transaction,
-        });
-        await PensionPayment.destroy({
-          where: { revenueId: existing.revenue.id },
-          transaction,
-        });
-        await Revenue.destroy({
-          where: { taxReturnId: taxReturnIn.id },
-          transaction,
-        });
+        if (existing.revenue) {
+          await WageIncome.destroy({
+            where: { revenueId: existing.revenue.id },
+            transaction,
+          });
+          await VehicleAllowance.destroy({
+            where: { revenueId: existing.revenue.id },
+            transaction,
+          });
+          await PensionPayment.destroy({
+            where: { revenueId: existing.revenue.id },
+            transaction,
+          });
+          await Revenue.destroy({
+            where: { taxReturnId: taxReturnIn.id },
+            transaction,
+          });
+        }
+
         await Revenue.create(
           { taxReturnId: taxReturnIn.id, ...taxReturnIn.revenue },
           {
@@ -182,18 +185,21 @@ export class ReturnsService {
 
       // 4) delete & recreate Assets + its children
       if (taxReturnIn.assets) {
-        await DomesticRealEstate.destroy({
-          where: { assetsId: existing.assets.id },
-          transaction,
-        });
-        await Automobile.destroy({
-          where: { assetsId: existing.assets.id },
-          transaction,
-        });
-        await Assets.destroy({
-          where: { taxReturnId: taxReturnIn.id },
-          transaction,
-        });
+        if (existing.assets) {
+          await DomesticRealEstate.destroy({
+            where: { assetsId: existing.assets.id },
+            transaction,
+          });
+          await Automobile.destroy({
+            where: { assetsId: existing.assets.id },
+            transaction,
+          });
+          await Assets.destroy({
+            where: { taxReturnId: taxReturnIn.id },
+            transaction,
+          });
+        }
+
         await Assets.create(
           { taxReturnId: taxReturnIn.id, ...taxReturnIn.assets },
           {
@@ -208,22 +214,25 @@ export class ReturnsService {
 
       // 5) delete & recreate DebtAndExpenses + its children
       if (taxReturnIn.debtAndExpenses) {
-        await ResidentialPropertyInterestExpense.destroy({
-          where: {
-            debtAndExpensesId: existing.debtAndExpenses.id,
-          },
-          transaction,
-        });
-        await OtherDebt.destroy({
-          where: {
-            debtAndExpensesId: existing.debtAndExpenses.id,
-          },
-          transaction,
-        });
-        await DebtAndExpenses.destroy({
-          where: { taxReturnId: taxReturnIn.id },
-          transaction,
-        });
+        if (existing.debtAndExpenses) {
+          await ResidentialPropertyInterestExpense.destroy({
+            where: {
+              debtAndExpensesId: existing.debtAndExpenses.id,
+            },
+            transaction,
+          });
+          await OtherDebt.destroy({
+            where: {
+              debtAndExpensesId: existing.debtAndExpenses.id,
+            },
+            transaction,
+          });
+          await DebtAndExpenses.destroy({
+            where: { taxReturnId: taxReturnIn.id },
+            transaction,
+          });
+        }
+
         await DebtAndExpenses.create(
           { taxReturnId: taxReturnIn.id, ...taxReturnIn.debtAndExpenses },
           {
@@ -253,9 +262,82 @@ export class ReturnsService {
       where: {
         id,
       },
+      include: [
+        {
+          model: Revenue,
+          include: [
+            {
+              model: WageIncome,
+              as: 'wageIncomes',
+            },
+            {
+              model: VehicleAllowance,
+              as: 'vehicleAllowances',
+            },
+            {
+              model: PensionPayment,
+              as: 'pensionPayments',
+            },
+          ],
+        },
+        {
+          model: Assets,
+          include: [
+            {
+              model: DomesticRealEstate,
+              as: 'domesticRealEstate',
+            },
+            {
+              model: Automobile,
+              as: 'automobiles',
+            },
+          ],
+        },
+        {
+          model: DebtAndExpenses,
+          include: [
+            {
+              model: ResidentialPropertyInterestExpense,
+              as: 'residentialInterestExpenses',
+            },
+            {
+              model: OtherDebt,
+              as: 'otherDebts',
+            },
+          ],
+        },
+      ],
     });
     if (!taxReturn) {
       throw new NotFoundException(`TaxReturn ${id} not found`);
+    }
+
+    if (
+      taxReturn.debtAndExpenses &&
+      taxReturn.debtAndExpenses.residentialInterestExpenses &&
+      taxReturn.debtAndExpenses.residentialInterestExpenses.length > 0
+    ) {
+      console.log(
+        'DEBUG: First ResidentialPropertyInterestExpense data from Sequelize:',
+      );
+      console.log(
+        JSON.stringify(
+          taxReturn.debtAndExpenses.residentialInterestExpenses[0].toJSON(), // .toJSON() gives cleaner output for Sequelize models
+          null,
+          2,
+        ),
+      );
+      console.log(
+        'DEBUG: Value of totalPaymentsForYear for the first item:',
+        taxReturn.debtAndExpenses.residentialInterestExpenses[0]
+          .totalAnnualPayments,
+      );
+    } else if (taxReturn.debtAndExpenses) {
+      console.log(
+        'DEBUG: debtAndExpenses exists, but residentialInterestExpenses is empty or null.',
+      );
+    } else {
+      console.log('DEBUG: debtAndExpenses is null on the taxReturn object.');
     }
     return taxReturn;
   }

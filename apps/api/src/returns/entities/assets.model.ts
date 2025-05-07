@@ -11,17 +11,18 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { TaxReturn } from './return.model';
+import { IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 @ObjectType()
 @Table({ tableName: 'assets' })
 export class Assets extends Model {
   @PrimaryKey
   @Default(DataType.UUIDV4)
-  @Column({ type: DataType.UUIDV4 })
+  @Column({ type: DataType.UUID })
   override id: string;
 
   @ForeignKey(() => TaxReturn)
-  @Column({ type: DataType.UUIDV4 })
+  @Column({ type: DataType.UUID })
   taxReturnId: string;
 
   @BelongsTo(() => TaxReturn)
@@ -77,15 +78,20 @@ export class DomesticRealEstate extends Model {
 @InputType()
 export class DomesticRealEstateInput {
   @Field({ nullable: true })
+  @IsOptional()
+  @IsUUID('4')
   id?: string;
 
   @Field()
+  @IsString()
   landlineNumber: string;
 
   @Field()
+  @IsString()
   address: string;
 
   @Field()
+  @IsNumber()
   realEstateValuation: number;
 }
 
@@ -121,14 +127,19 @@ export class Automobile extends Model {
 @InputType()
 export class AutomobileInput {
   @Field({ nullable: true })
+  @IsOptional()
+  @IsUUID('4')
   id?: string;
 
   @Field()
+  @IsString()
   plateNumber: string;
 
   @Field()
+  @IsNumber()
   yearOfPurchase: number;
 
   @Field()
+  @IsNumber()
   purchasePrice: number;
 }

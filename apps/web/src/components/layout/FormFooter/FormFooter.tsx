@@ -1,13 +1,8 @@
 'use client';
 import { ArrowRight } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 
 const FormFooter = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const split = pathname.split('/');
-  const step = split[split.length - 1];
   return (
     <div className="border-t border-primary-dark-100 w-full px-12 md:px-[114px] py-10 flex justify-end bg-white">
       <button
