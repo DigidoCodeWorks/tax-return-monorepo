@@ -97,8 +97,8 @@ export class ResidentialPropertyInterestExpense extends Model {
   loanTermYears: number;
 
   @Column({ type: DataType.INTEGER },)
-  @Field({nullable:true})
-  totalPaymentsForYear?: number;
+  @Field()
+  totalAnnualPayments: number;
 
   @Column({ type: DataType.INTEGER })
   @Field()
@@ -139,8 +139,8 @@ export class ResidentialPropertyInterestExpenseInput {
   @Field()
   loanTermYears: number;
 
-  @Field({nullable:true})
-  totalPaymentsForYear?: number;
+  @Field()
+  totalAnnualPayments: number;
 
   @Field()
   faceValue: number;
