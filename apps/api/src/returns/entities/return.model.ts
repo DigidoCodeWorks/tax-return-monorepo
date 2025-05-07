@@ -56,13 +56,13 @@ export class TaxReturnInput {
   @Field()
   userId: string;
 
-  @Field(() => RevenueInput)
+  @Field(() => RevenueInput, {nullable: true })
   revenue: RevenueInput;
 
-  @Field(() => AssetsInput)
+  @Field(() => AssetsInput, {nullable: true })
   assets: AssetsInput;
 
-  @Field(() => DebtAndExpensesInput)
+  @Field(() => DebtAndExpensesInput, {nullable: true })
   debtAndExpenses: DebtAndExpensesInput;
 }
 
