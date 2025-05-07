@@ -17,6 +17,7 @@ interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
   as?: keyof HTMLElementTagNameMap;
   className?: string;
   children: React.ReactNode;
+  htmlFor?: string;
 }
 const variantClasses: Record<Variant, string> = {
   h1: 'text-[32px] leading-[42px] font-semibold md:text-[42px] md:leading-[52px]',
@@ -36,11 +37,13 @@ export const Typography = ({
   as = 'p',
   className,
   children,
+  htmlFor,
   ...props
 }: TypographyProps) => {
   const Tag = as;
   return (
     <Tag
+      {...(htmlFor ? { htmlFor } : {})}
       className={clsx('font-sans', variantClasses[variant], className)}
       {...props}
     >
