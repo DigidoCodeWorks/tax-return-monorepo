@@ -46,3 +46,13 @@ test-output
 # Next.js
 .next
 out
+
+# .pem files
+*.pem
+
+# .env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
