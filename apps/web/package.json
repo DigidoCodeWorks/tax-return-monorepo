@@ -2,6 +2,9 @@
   "name": "@tax-return-app/web",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "codegen": "graphql-codegen --config codegen.ts"
+  },
   "dependencies": {
     "next": "~15.2.4",
     "react": "19.0.0",
