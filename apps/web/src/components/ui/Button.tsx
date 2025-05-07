@@ -33,7 +33,7 @@ export const Button = ({
         as="h5"
         variant="h5"
         className={clsx(
-          'font-semibold cursor-pointer',
+          'font-semibold cursor-pointer px-4',
           variant === 'outlined' ? 'text-[#0061FF]' : 'text-white',
         )}
       >
