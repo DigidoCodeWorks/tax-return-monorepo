@@ -1,6 +1,5 @@
 import HouseIcon from '@/components/icons/HouseIcon';
 import { Typography } from '@/components/ui/typography';
-import Image from 'next/image';
 
 interface HousingLoanCardProps {
   location: string;
