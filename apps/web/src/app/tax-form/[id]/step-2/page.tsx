@@ -19,7 +19,6 @@ export default async function IncomeStepPage({ params }: Props) {
     console.error(`No tax return found for ID: ${id}`);
     return null;
   }
-  const editable = (keys: string[]) => keys.filter((k) => k !== 'id');
 
   const wageIncomeData = (taxReturn.wageIncomes ?? []).map((item) => ({
     id: item.id,
