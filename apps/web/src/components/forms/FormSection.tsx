@@ -1,27 +1,31 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Input from '@/components/forms/ui/Input';
 import { Typography } from '../ui/typography';
 import { Button } from '../ui/Button';
+import InfoIcon from '../icons/InfoIcon';
+
 type GenericRow = {
   id: string;
   [key: string]: string;
 };
 
-type IncomeSectionProps = {
+type FormSectionprops = {
   title: string;
   fieldKeys: string[];
   labels: string[];
   initialData?: GenericRow[];
+  editableFields?: string[];
 };
 
-export default function IncomeSection({
+export default function FormSection({
   title,
   fieldKeys,
   labels,
   initialData = [],
-}: IncomeSectionProps) {
+  editableFields = [],
+}: FormSectionprops) {
   const [rows, setRows] = useState<GenericRow[]>(() => {
     if (initialData.length > 0) {
       return initialData.map((row) => ({
@@ -53,16 +57,38 @@ export default function IncomeSection({
   };
 
   const total = rows.reduce((sum, row) => {
-    const amount = row.amount || row.upphæð; // support both 2.1 & 2.3 key names
-    const parsed = parseInt(amount?.replace(/\D/g, ''), 10);
+    // try to find the first field that looks like an amount
+    const amountField = fieldKeys.find((key) =>
+      [
+        'amount',
+        'upphæð',
+        'fasteignamat',
+        'kaupverð',
+        'realEstateValuation',
+        'purchasePrice',
+      ].includes(key),
+    );
+
+    const raw = amountField ? row[amountField] : '';
+    const parsed = parseInt(raw?.replace(/\D/g, ''), 10);
     return sum + (isNaN(parsed) ? 0 : parsed);
   }, 0);
 
+  const [formattedTotal, setFormattedTotal] = useState('');
+
+  useEffect(() => {
+    setFormattedTotal(total.toLocaleString('is-IS'));
+  }, [total]);
+
   return (
     <section className="mb-10">
-      <Typography className="text-primary-dark-400 whitespace-nowrap font-normal">
-        {title}
-      </Typography>
+      <div className="flex items-center gap-2">
+        <Typography className="text-primary-dark-400 whitespace-nowrap font-normal">
+          {title}
+        </Typography>
+        <InfoIcon />
+      </div>
+
       <div className="grid grid-cols-3 gap-4 mt-6 text-sm font-semibold text-gray-500 mb-2">
         {labels.map((label) => (
           <Typography
@@ -76,16 +102,22 @@ export default function IncomeSection({
       </div>
 
       {rows.map((row) => (
-        <div
-          key={row.id ?? crypto.randomUUID()}
-          className="grid grid-cols-3 gap-4 mb-4"
-        >
+        <div key={row.id} className="grid grid-cols-3 gap-4 mb-4">
           {fieldKeys.map((key, i) => (
             <Input
-              key={key}
+              key={key + row.id}
               value={row[key] || ''}
-              onChange={(e) => updateRow(row.id, key, e.target.value)}
+              onChange={(e) => {
+                if (key === 'amount') {
+                  const input = e.target.value;
+                  const cleaned = input.replace(/[^\d]/g, '');
+                  updateRow(row.id, key, cleaned ? `${cleaned} kr.` : '');
+                } else {
+                  updateRow(row.id, key, e.target.value);
+                }
+              }}
               placeholder={labels[i]}
+              disabled={!editableFields?.includes(key)}
             />
           ))}
         </div>
@@ -108,7 +140,7 @@ export default function IncomeSection({
             as="h5"
             className="text-primary-dark-400 whitespace-nowrap font-semibold"
           >
-            {total.toLocaleString('is-IS')} kr.
+            {formattedTotal} kr.
           </Typography>
         </div>
       </div>
