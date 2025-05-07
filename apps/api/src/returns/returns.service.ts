@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
+import { InjectConnection, InjectModel } from '@nestjs/sequelize';
 import {
   TaxReturn,
   TaxReturnInput,
@@ -28,9 +28,10 @@ import { Sequelize } from 'sequelize-typescript';
 @Injectable()
 export class ReturnsService {
   constructor(
+    @InjectConnection()
+    private sequelize: Sequelize,
     @InjectModel(TaxReturn)
     private taxReturnModel: typeof TaxReturn,
-    private sequelize: Sequelize,
   ) {}
 
   async createTaxReturn(taxReturn: TaxReturnInput): Promise<TaxReturn> {

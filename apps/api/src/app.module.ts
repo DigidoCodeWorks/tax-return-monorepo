@@ -25,11 +25,14 @@ import {
 } from './returns/entities/revenue.model';
 import * as fs from 'fs';
 import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     ReturnsModule,
+    UsersModule,
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.DB_HOST,
@@ -58,9 +61,30 @@ import { ConfigModule } from '@nestjs/config';
       ],
       synchronize: true,
       autoLoadModels: true,
-      sync:{
-        alter:true,
-      }
+      sync: {
+        alter: true,
+      },
+    }),
+    SequelizeModule.forRoot({
+      name: 'registryConnection',
+      dialect: 'postgres',
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      database: process.env.DB_NAME_REGISTRY,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      dialectOptions: {
+        ssl: {
+          rejectUnauthorized: false,
+          ca: fs.readFileSync(path.join(__dirname, '..', 'ca.pem')).toString(),
+        },
+      },
+      models: [User],
+      synchronize: true,
+      autoLoadModels: true,
+      sync: {
+        alter: true,
+      },
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
