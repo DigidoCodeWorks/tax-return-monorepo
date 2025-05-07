@@ -330,7 +330,7 @@ export class ReturnsService {
       console.log(
         'DEBUG: Value of totalPaymentsForYear for the first item:',
         taxReturn.debtAndExpenses.residentialInterestExpenses[0]
-          .totalPaymentsForYea,
+          .totalAnnualPayments,
       );
     } else if (taxReturn.debtAndExpenses) {
       console.log(
