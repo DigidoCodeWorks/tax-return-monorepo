@@ -148,9 +148,9 @@ export default function IncomeStepPageWrapper({ params }: Props) {
             amount: parseInt(row.amount.replace(/\D/g, '')) || 0,
           })),
         },
-        lastStep: 3,
+        lastStep: 4,
       });
-      router.push(`/tax-form/${id}/step-3`);
+      router.push(`/tax-form/${id}/step-4`);
     }
   };
 
