@@ -220,7 +220,6 @@ export default function FormSection({
                         ].includes(key)
                       ) {
                         const cleaned = value.replace(/[^\d]/g, '');
-                        console.log(row[key]);
                         updateRow(row.id, key, cleaned ? `${cleaned} kr.` : '');
                       } else {
                         updateRow(row.id, key, value);
@@ -245,7 +244,7 @@ export default function FormSection({
                       variant="medium"
                       className="text-primary-dark-400 whitespace-nowrap font-semibold"
                     >
-                      Samtals: {totals[key].toLocaleString('en-US')} kr.
+                      Samtals: {totals[key].toLocaleString('is-IS')} kr.
                     </Typography>
                   )}
                 </div>
@@ -280,7 +279,7 @@ export default function FormSection({
                       as="h5"
                       className="text-primary-dark-400 whitespace-nowrap font-semibold"
                     >
-                      {total.toLocaleString('en-US').replaceAll(',', '.')} kr.
+                      {total.toLocaleString('is-IS')} kr.
                     </Typography>
                   </>
                 )}

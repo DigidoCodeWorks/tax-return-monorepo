@@ -71,7 +71,7 @@ export default async function ActiveTaxCard() {
             variant="medium"
             className="hidden md:block pb-1 w-fit font-semibold hover:cursor-pointer text-primary-blue-400 border-b border-primary-blue-200"
           >
-            Opna pósthólf →
+            Opna skattframtal →
           </Typography>
         </div>
       </div>
