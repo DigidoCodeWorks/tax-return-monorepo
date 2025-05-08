@@ -16,9 +16,9 @@ const FormFooter = ({ currentStep }: Props) => {
         className="flex bg-primary-blue-400 hover:bg-[#0052d6] py-[18px] text-white items-center gap-x-2 px-6 rounded-lg hover:cursor-pointer"
       >
         {currentStep === 1 && 'Halda áfram'}{' '}
-        {currentStep > 1 && currentStep < 5 && 'Vista og halda áfram'}{' '}
-        {currentStep === 5 && 'Senda skattframtal'}
-        {currentStep === 5 ? (
+        {currentStep > 1 && currentStep < 4 && 'Vista og halda áfram'}{' '}
+        {currentStep === 4 && 'Senda skattframtal'}
+        {currentStep === 4 ? (
           <Check color="white" size={18} />
         ) : (
           <ArrowRight color="white" size={18} />

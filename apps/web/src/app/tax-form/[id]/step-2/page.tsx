@@ -39,6 +39,9 @@ export default function IncomeStepPageWrapper({ params }: Props) {
       const taxReturn = await fetchTaxReturnIncome(
         taxReturns?.[taxReturns.length - 1]?.id,
       );
+      console.log(id, 'id alo');
+      console.log(taxReturn, 'taxReturn');
+      console.log(taxReturns, 'taxReturns');
 
       if (!taxReturn) {
         console.error(`No tax return found for ID: ${id}`);

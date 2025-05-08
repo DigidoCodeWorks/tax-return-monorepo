@@ -112,10 +112,9 @@ export default function DebtStepPage({ params }: Props) {
             parseInt(item.outstandingDebt.replace(/\D/g, '')) || 0,
         })),
       },
-      lastStep: 5,
+      lastStep: 4,
     });
-    console.log(result);
-    // router.push(`/tax-form/${userId}/step-6`);
+    router.push(`/my-pages`);
   };
 
   if (loading) return <div className="p-12">Sæki gögn...</div>;
