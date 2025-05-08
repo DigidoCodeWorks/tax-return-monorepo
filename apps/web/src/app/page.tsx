@@ -76,12 +76,15 @@ export default async function InformationPage() {
             <Typography variant="h3" as="h3" className="text-primary-blue-600">
               Skila inn skattframtali
             </Typography>
-            <button className="flex bg-primary-blue-400 hover:bg-[#0052d6] py-[18px] text-white items-center gap-x-2 px-6 rounded-lg hover:cursor-pointer">
+            <Link
+              href="/login"
+              className="flex bg-primary-blue-400 hover:bg-[#0052d6] py-[18px] text-white items-center gap-x-2 px-6 rounded-lg hover:cursor-pointer"
+            >
               <Typography variant="h5" as="h5">
                 Skattframtal 2025{' '}
               </Typography>
               <OpenClick />
-            </button>
+            </Link>
           </div>
           <Typography variant="p" as="p" className="text-primary-dark-400">
             Allir einstaklingar og lögaðilar þurfa að skila skattframtali ár

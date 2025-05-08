@@ -16,6 +16,7 @@ export const GET_TAX_RETURN = gql`
       id
       year
       userId
+      lastStep
       revenue {
         wageIncomes {
           id

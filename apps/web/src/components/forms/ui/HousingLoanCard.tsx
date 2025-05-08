@@ -21,8 +21,8 @@ export default function HousingLoanCard({
   outstandingDebt,
 }: HousingLoanCardProps) {
   return (
-    <section className="mb-10 border rounded-lg px-8 pt-8 pb-6 flex items-center justify-between">
-      <div>
+    <section className="mb-10 border border-primary-blue-200  rounded-lg px-8 pt-8  flex flex-col gap-y-4 md:flex-row items-center justify-between">
+      <div className="order-2 md:order-1">
         <Typography
           variant="small"
           className="text-blue-400 font-semibold mb-1"
@@ -32,7 +32,7 @@ export default function HousingLoanCard({
         <Typography variant="h2" as="h2" className="mb-4">
           {location}
         </Typography>
-        <div className="flex gap-12">
+        <div className="flex flex-col gap-y-2 sm:flex-row gap-12">
           <div>
             <Typography variant="medium" className="text-gray-500 text-sm">
               Vaxtagjöld
@@ -50,14 +50,14 @@ export default function HousingLoanCard({
             </Typography>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-8 py-6 border-t border-primary-blue-200 flex items-center justify-between">
           <Typography className="text-primary-blue-400 font-semibold">
             Sjá meira
           </Typography>{' '}
         </div>
       </div>
 
-      <div>
+      <div className="order-1 md:order-2">
         <HouseIcon />
       </div>
     </section>
