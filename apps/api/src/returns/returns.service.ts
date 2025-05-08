@@ -305,33 +305,6 @@ export class ReturnsService {
       throw new NotFoundException(`TaxReturn ${id} not found`);
     }
 
-    if (
-      taxReturn.debtAndExpenses &&
-      taxReturn.debtAndExpenses.residentialInterestExpenses &&
-      taxReturn.debtAndExpenses.residentialInterestExpenses.length > 0
-    ) {
-      console.log(
-        'DEBUG: First ResidentialPropertyInterestExpense data from Sequelize:',
-      );
-      console.log(
-        JSON.stringify(
-          taxReturn.debtAndExpenses.residentialInterestExpenses[0].toJSON(), // .toJSON() gives cleaner output for Sequelize models
-          null,
-          2,
-        ),
-      );
-      console.log(
-        'DEBUG: Value of totalPaymentsForYear for the first item:',
-        taxReturn.debtAndExpenses.residentialInterestExpenses[0]
-          .totalAnnualPayments,
-      );
-    } else if (taxReturn.debtAndExpenses) {
-      console.log(
-        'DEBUG: debtAndExpenses exists, but residentialInterestExpenses is empty or null.',
-      );
-    } else {
-      console.log('DEBUG: debtAndExpenses is null on the taxReturn object.');
-    }
     return taxReturn;
   }
 
