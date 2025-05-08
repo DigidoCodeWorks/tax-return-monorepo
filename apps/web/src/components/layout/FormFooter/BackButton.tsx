@@ -21,7 +21,7 @@ const BackButton = ({ currentStep }: Props) => {
     const latestId = taxReturns?.[taxReturns.length - 1]?.id;
     if (!latestId) return;
 
-    const test = await updateTaxReturn({
+    await updateTaxReturn({
       id: latestId,
       lastStep: currentStep - 1,
     });

@@ -82,7 +82,7 @@ export default function DebtStepPage({ params }: Props) {
       return;
     }
 
-    const result = await updateTaxReturn({
+    await updateTaxReturn({
       id: latestReturnId,
       debtAndExpenses: {
         residentialInterestExpenses: residentialLoan
