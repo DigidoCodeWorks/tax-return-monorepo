@@ -81,13 +81,7 @@ export default function IncomeStepPageWrapper({ params }: Props) {
     load();
   }, [params]);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-[calc(100vh-100px)]">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-blue-400 border-t-transparent" />
-      </div>
-    );
-  }
+  if (loading) return <div className="p-12">Sæki gögn...</div>;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -148,19 +142,19 @@ export default function IncomeStepPageWrapper({ params }: Props) {
             amount: parseInt(row.amount.replace(/\D/g, '')) || 0,
           })),
         },
-        lastStep: 4,
+        lastStep: 3,
       });
-      router.push(`/tax-form/${id}/step-4`);
+      router.push(`/tax-form/${id}/step-3`);
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <main className="ml-0 md:ml-4 lg:ml-12 p-6 py-20 px-8 md:px-20 lg:px-28 space-y-12 bg-white rounded-lg mt-0 md:mt-4 lg:mt-12 mb-0 md:mb-20">
+      <main className="ml-0 md:ml-4 lg:ml-12 p-6 py-5 md:py-10 xlpy-20 px-8 md:px-20 lg:px-28 space-y-6 xl:space-y-12 bg-white rounded-lg mt-0 md:mt-4 lg:mt-12 mb-0 md:mb-20">
         <Typography
           variant="h2"
           as="h2"
-          className="text-primary-dark-400 whitespace-nowrap font-semibold"
+          className="text-primary-dark-400 sm:whitespace-nowrap font-semibold"
         >
           2 Tekjur ársins 2024
         </Typography>

@@ -104,7 +104,7 @@ export default function FormSection({
   return (
     <section className="mb-10">
       <div className="flex items-center gap-2">
-        <Typography className="text-primary-dark-400 whitespace-nowrap font-normal">
+        <Typography className="text-primary-dark-400 sm:whitespace-nowrap font-normal">
           {title}
         </Typography>
         <InfoIcon />
@@ -116,7 +116,7 @@ export default function FormSection({
           <Typography
             variant="medium"
             key={label}
-            className="text-primary-blue-400 whitespace-nowrap font-semibold"
+            className="text-primary-blue-400 sm:whitespace-nowrap font-semibold"
           >
             {label}
           </Typography>
@@ -220,7 +220,6 @@ export default function FormSection({
                         ].includes(key)
                       ) {
                         const cleaned = value.replace(/[^\d]/g, '');
-                        console.log(row[key]);
                         updateRow(row.id, key, cleaned ? `${cleaned} kr.` : '');
                       } else {
                         updateRow(row.id, key, value);
@@ -243,9 +242,9 @@ export default function FormSection({
                   {totals[key] !== undefined && (
                     <Typography
                       variant="medium"
-                      className="text-primary-dark-400 whitespace-nowrap font-semibold"
+                      className="text-primary-dark-400 sm:whitespace-nowrap font-semibold"
                     >
-                      Samtals: {totals[key].toLocaleString('en-US')} kr.
+                      Samtals: {totals[key].toLocaleString('is-IS')} kr.
                     </Typography>
                   )}
                 </div>
@@ -272,15 +271,15 @@ export default function FormSection({
                   <>
                     <Typography
                       variant="medium"
-                      className="text-primary-dark-400 whitespace-nowrap font-semibold"
+                      className="text-primary-dark-400 sm:whitespace-nowrap font-semibold"
                     >
                       Samtals
                     </Typography>
                     <Typography
                       as="h5"
-                      className="text-primary-dark-400 whitespace-nowrap font-semibold"
+                      className="text-primary-dark-400 sm:whitespace-nowrap font-semibold"
                     >
-                      {total.toLocaleString('en-US').replaceAll(',', '.')} kr.
+                      {total.toLocaleString('is-IS')} kr.
                     </Typography>
                   </>
                 )}

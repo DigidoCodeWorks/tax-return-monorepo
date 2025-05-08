@@ -1,38 +1,34 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 import FormSection from '@/components/forms/FormSection';
+import HousingLoanCard from '@/components/forms/ui/HousingLoanCard';
+import InfoIcon from '@/components/icons/InfoIcon';
 import FormFooter from '@/components/layout/FormFooter/FormFooter';
 import { Typography } from '@/components/ui/typography';
+import { fetchTaxReturnDebt } from '@/lib/actions/fetchTaxReturnDebt';
 import { fetchTaxReturnsByUserId } from '@/lib/actions/fetchTaxReturns';
-import { fetchTaxReturnAssets } from '@/lib/actions/fetchTaxReturnAssets';
 import { updateTaxReturn } from '@/lib/actions/updateTaxReturn';
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
-type RealEstateRow = {
+type OtherDebtRow = {
   id: string;
-  landlineNumber: string;
-  address: string;
-  realEstateValuation: string;
+  title: string;
+  interestExpenses: string;
+  outstandingDebt: string;
 };
 
-type VehicleRow = {
-  id: string;
-  plateNumber: string;
-  yearOfPurchase: string;
-  purchasePrice: string;
-};
-
-export default function AssetsStepPageWrapper({ params }: Props) {
-  const [realEstateRows, setRealEstateRows] = useState<RealEstateRow[]>([]);
-  const [vehicleRows, setVehicleRows] = useState<VehicleRow[]>([]);
+export default function DebtStepPage({ params }: Props) {
+  const [residentialLoan, setResidentialLoan] = useState<any | null>(null);
+  const [otherDebts, setOtherDebts] = useState<OtherDebtRow[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -48,29 +44,25 @@ export default function AssetsStepPageWrapper({ params }: Props) {
         return;
       }
 
-      const taxReturn = await fetchTaxReturnAssets(latestReturnId);
+      const taxReturn = await fetchTaxReturnDebt(latestReturnId);
 
       if (!taxReturn) {
         console.error(`No tax return found for ID: ${latestReturnId}`);
         return;
       }
 
-      const realEstate = (taxReturn.domesticRealEstate ?? []).map((item) => ({
+      if (taxReturn.residentialInterestExpenses?.length > 0) {
+        setResidentialLoan(taxReturn.residentialInterestExpenses[0]);
+      }
+
+      const mappedDebts = (taxReturn.otherDebts ?? []).map((item) => ({
         id: item.id,
-        landlineNumber: item.landlineNumber,
-        address: item.address,
-        realEstateValuation: `${item.realEstateValuation.toLocaleString('is-IS')} kr.`,
+        title: item.title ?? '',
+        interestExpenses: `${item.interestExpenses?.toLocaleString('is-IS') ?? ''} kr.`,
+        outstandingDebt: `${item.outstandingDebt?.toLocaleString('is-IS') ?? ''} kr.`,
       }));
 
-      const vehicles = (taxReturn.automobiles ?? []).map((item) => ({
-        id: item.id,
-        plateNumber: item.plateNumber,
-        yearOfPurchase: item.yearOfPurchase.toString(),
-        purchasePrice: `${item.purchasePrice.toLocaleString('is-IS')} kr.`,
-      }));
-
-      setRealEstateRows(realEstate);
-      setVehicleRows(vehicles);
+      setOtherDebts(mappedDebts);
       setLoading(false);
     };
 
@@ -92,58 +84,73 @@ export default function AssetsStepPageWrapper({ params }: Props) {
 
     await updateTaxReturn({
       id: latestReturnId,
-      assets: {
-        domesticRealEstate: realEstateRows.map((item) => ({
+      debtAndExpenses: {
+        residentialInterestExpenses: residentialLoan
+          ? [
+              {
+                id: residentialLoan.id,
+                location: residentialLoan.location,
+                interestExpenses: residentialLoan.interestExpenses,
+                outstandingDebt: residentialLoan.outstandingDebt,
+                faceValue: residentialLoan.faceValue,
+                lender: residentialLoan.lender,
+                loanNumber: residentialLoan.loanNumber,
+                lendersIdNumber: residentialLoan.lendersIdNumber,
+                loanTermYears: residentialLoan.loanTermYears,
+                totalAnnualPayments: residentialLoan.totalAnnualPayments,
+                yearOfPurchase: residentialLoan.yearOfPurchase,
+                borrowingDate: residentialLoan.borrowingDate,
+              },
+            ]
+          : [],
+        otherDebts: otherDebts.map((item) => ({
           id: item.id,
-          landlineNumber: item.landlineNumber,
-          address: item.address,
-          realEstateValuation:
-            parseInt(item.realEstateValuation.replace(/\D/g, '')) || 0,
-        })),
-        automobiles: vehicleRows.map((item) => ({
-          id: item.id,
-          plateNumber: item.plateNumber,
-          yearOfPurchase: parseInt(item.yearOfPurchase) || 0,
-          purchasePrice: parseInt(item.purchasePrice.replace(/\D/g, '')) || 0,
+          title: item.title,
+          interestExpenses:
+            parseInt(item.interestExpenses.replace(/\D/g, '')) || 0,
+          outstandingDebt:
+            parseInt(item.outstandingDebt.replace(/\D/g, '')) || 0,
         })),
       },
-      lastStep: 5,
+      lastStep: 4,
     });
-    router.push(`/tax-form/${userId}/step-5`);
+    router.push(`/my-pages`);
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-[calc(100vh-100px)]">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-blue-400 border-t-transparent" />
-      </div>
-    );
-  }
+  if (loading) return <div className="p-12">Sæki gögn...</div>;
+
   return (
     <form onSubmit={handleSubmit}>
       <main className="ml-0 md:ml-4 lg:ml-12 p-6 py-20 px-8 md:px-20 lg:px-28 space-y-12 bg-white rounded-lg mt-0 md:mt-4 lg:mt-12 mb-0 md:mb-20">
         <Typography
           variant="h2"
           as="h2"
-          className="text-primary-dark-400 whitespace-nowrap font-semibold"
+          className="text-primary-dark-400 sm:whitespace-nowrap font-semibold"
         >
-          4 Eignir í árslok 2024
+          5 Skuldir og vaxtagjöld
         </Typography>
 
-        <FormSection
-          title="4.1 Innlendar fasteignir"
-          fieldKeys={['landlineNumber', 'address', 'realEstateValuation']}
-          labels={['Fastanúmer', 'Heimilisfang', 'Fasteignamat']}
-          initialData={realEstateRows}
-          onChange={(rows) => setRealEstateRows(rows as RealEstateRow[])}
-        />
+        <div className="flex items-center gap-2">
+          <Typography className="text-primary-dark-400 sm:whitespace-nowrap font-normal">
+            5.2 Vaxtagjöld vegna íbúðarhúsnæðis til eigin nota
+          </Typography>
+          <InfoIcon />
+        </div>
+
+        {residentialLoan && (
+          <HousingLoanCard
+            location={residentialLoan.location}
+            interestExpenses={residentialLoan.interestExpenses}
+            outstandingDebt={residentialLoan.outstandingDebt}
+          />
+        )}
 
         <FormSection
-          title="4.3 Bifreiðir"
-          fieldKeys={['plateNumber', 'yearOfPurchase', 'purchasePrice']}
-          labels={['Númer', 'Kaupár', 'Kaupverð']}
-          initialData={vehicleRows}
-          onChange={(rows) => setVehicleRows(rows as VehicleRow[])}
+          title="5.5 Aðrar skuldir og vaxtagjöld"
+          fieldKeys={['title', 'interestExpenses', 'outstandingDebt']}
+          labels={['Titill', 'Vaxtagjöld', 'Eftirstöðvar skulda']}
+          initialData={otherDebts}
+          onChange={(rows) => setOtherDebts(rows as OtherDebtRow[])}
         />
 
         <FormFooter currentStep={4} />
