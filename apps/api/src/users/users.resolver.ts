@@ -24,8 +24,9 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.usersService.update(updateUserInput.id, updateUserInput);
+  async updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
+    await this.usersService.update(updateUserInput.id, updateUserInput);
+    return this.usersService.findOne(updateUserInput.id);
   }
 
   @Mutation(() => User)
