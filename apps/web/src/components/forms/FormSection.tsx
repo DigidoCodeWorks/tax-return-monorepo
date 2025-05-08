@@ -257,7 +257,12 @@ export default function FormSection({
       <div className="flex justify-between pt-4">
         {allowAddRow && (
           <div>
-            <Button variant="outlined" className="" onClick={addRow}>
+            <Button
+              type="button"
+              variant="outlined"
+              className=""
+              onClick={addRow}
+            >
               Ný lína +
             </Button>
           </div>
@@ -279,7 +284,7 @@ export default function FormSection({
                       as="h5"
                       className="text-primary-dark-400 sm:whitespace-nowrap font-semibold"
                     >
-                      {total.toLocaleString('is-IS')} kr.
+                      {total.toLocaleString('de-DE')} kr.
                     </Typography>
                   </>
                 )}
