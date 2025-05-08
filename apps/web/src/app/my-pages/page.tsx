@@ -12,7 +12,7 @@ export default function MyPages() {
   return (
     <main className="px-4 md:px-12 lg:px-20 py-12">
       {/* Greeting */}
-      <div className="flex flex-col  gap-y-[40px] md:flex-row justify-between px-4 md:px-12 lg:px-[200px] gap-x-12 md:gap-x-36">
+      <div className="flex flex-col  gap-y-[40px] md:flex-row justify-between lg:px-28 gap-x-12 md:gap-x-36">
         <div className="flex flex-col gap-y-4">
           <Typography variant="medium" className="text-secondary-purple-400">
             Góðan dag,

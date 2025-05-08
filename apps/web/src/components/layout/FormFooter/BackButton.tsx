@@ -17,18 +17,17 @@ const BackButton = ({ currentStep }: Props) => {
   const handleBack = async () => {
     if (!userId || currentStep <= 1) return;
 
-    const previousStep = currentStep === 4 ? 2 : currentStep - 1;
-
     const taxReturns = await fetchTaxReturnsByUserId(userId);
     const latestId = taxReturns?.[taxReturns.length - 1]?.id;
     if (!latestId) return;
 
     await updateTaxReturn({
       id: latestId,
-      lastStep: previousStep,
+      lastStep: currentStep - 1,
     });
-
-    router.push(`/tax-form/${userId}/step-${previousStep}`);
+    console.log(currentStep, 'currentStep');
+    console.log(currentStep - 1, 'test');
+    router.push(`/tax-form/${userId}/step-${currentStep - 1}`);
   };
 
   if (currentStep <= 1) return null;
