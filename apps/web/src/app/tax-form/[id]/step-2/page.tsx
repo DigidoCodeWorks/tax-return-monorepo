@@ -53,7 +53,7 @@ export default function IncomeStepPageWrapper({ params }: Props) {
           id: item.id,
           nationalId: item.ssn,
           name: item.name,
-          amount: `${item.salaryAmount?.toLocaleString('is-IS')} kr.`,
+          amount: `${item.salaryAmount?.toLocaleString('is-IS')} `,
         })),
       );
 
@@ -62,7 +62,7 @@ export default function IncomeStepPageWrapper({ params }: Props) {
           id: item.id,
           type: item.type,
           name: item.name,
-          amount: `${item.amount?.toLocaleString('is-IS')} kr.`,
+          amount: `${item.amount?.toLocaleString('is-IS')} `,
         })),
       );
 
@@ -71,7 +71,7 @@ export default function IncomeStepPageWrapper({ params }: Props) {
           id: item.id,
           type: item.type,
           name: item.name,
-          amount: `${item.amount?.toLocaleString('is-IS')} kr.`,
+          amount: `${item.amount?.toLocaleString('is-IS')} `,
         })),
       );
 

@@ -1,3 +1,4 @@
+// Input.tsx
 import { InputHTMLAttributes } from 'react';
 import clsx from 'clsx';
 import { AlertTriangle } from 'lucide-react';
@@ -6,6 +7,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: boolean;
   errorMessage?: string;
+  showCurrencyKr?: boolean;
 }
 
 export default function Input({
@@ -13,6 +15,7 @@ export default function Input({
   className,
   error,
   errorMessage,
+  showCurrencyKr = false,
   ...props
 }: InputProps) {
   return (
@@ -26,7 +29,7 @@ export default function Input({
       <div className="relative w-full">
         <input
           className={clsx(
-            'px-4 py-2 pr-10 border rounded-md text-base w-full',
+            'px-4 py-2 border rounded-md text-base w-full pr-14',
             error
               ? 'border-primary-red-400 bg-primary-red-100 outline-none'
               : 'border-gray-300 outline outline-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500',
@@ -34,8 +37,13 @@ export default function Input({
           )}
           {...props}
         />
+        {showCurrencyKr && (
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">
+            kr.
+          </span>
+        )}
         {error && (
-          <AlertTriangle className="w-5 h-5 text-primary-red-400 absolute right-3 top-1/2 -translate-y-1/2" />
+          <AlertTriangle className="w-5 h-5 text-primary-red-400 absolute right-10 top-1/2 -translate-y-1/2" />
         )}
       </div>
 

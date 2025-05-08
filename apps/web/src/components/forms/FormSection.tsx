@@ -156,7 +156,7 @@ export default function FormSection({
                         ].includes(key)
                       ) {
                         const cleaned = value.replace(/[^\d]/g, '');
-                        updateRow(row.id, key, cleaned ? `${cleaned} kr.` : '');
+                        updateRow(row.id, key, cleaned);
                       } else {
                         updateRow(row.id, key, value);
                       }
@@ -164,7 +164,18 @@ export default function FormSection({
                     placeholder={labels[i]}
                     disabled={!editableFields.includes(key)}
                     error={!!fieldError}
+                    showCurrencyKr={[
+                      'amount',
+                      'upphæð',
+                      'fasteignamat',
+                      'kaupverð',
+                      'realEstateValuation',
+                      'purchasePrice',
+                      'outstandingDebt',
+                      'interestExpenses',
+                    ].includes(key)}
                   />
+
                   {fieldError && (
                     <Typography
                       variant="small"
@@ -220,7 +231,7 @@ export default function FormSection({
                         ].includes(key)
                       ) {
                         const cleaned = value.replace(/[^\d]/g, '');
-                        updateRow(row.id, key, cleaned ? `${cleaned} kr.` : '');
+                        updateRow(row.id, key, cleaned);
                       } else {
                         updateRow(row.id, key, value);
                       }
@@ -228,7 +239,18 @@ export default function FormSection({
                     placeholder={labels[i]}
                     disabled={!editableFields.includes(key)}
                     error={!!fieldError}
+                    showCurrencyKr={[
+                      'amount',
+                      'upphæð',
+                      'fasteignamat',
+                      'kaupverð',
+                      'realEstateValuation',
+                      'purchasePrice',
+                      'outstandingDebt',
+                      'interestExpenses',
+                    ].includes(key)}
                   />
+
                   {fieldError && (
                     <Typography
                       variant="small"
