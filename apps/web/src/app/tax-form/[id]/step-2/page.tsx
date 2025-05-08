@@ -81,7 +81,13 @@ export default function IncomeStepPageWrapper({ params }: Props) {
     load();
   }, [params]);
 
-  if (loading) return <div className="p-12">Sæki gögn...</div>;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="h-16 w-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -142,9 +148,9 @@ export default function IncomeStepPageWrapper({ params }: Props) {
             amount: parseInt(row.amount.replace(/\D/g, '')) || 0,
           })),
         },
-        lastStep: 3,
+        lastStep: 4,
       });
-      router.push(`/tax-form/${id}/step-3`);
+      router.push(`/tax-form/${id}/step-4`);
     }
   };
 
