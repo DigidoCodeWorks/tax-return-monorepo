@@ -17,9 +17,10 @@ const FormFooter = ({ currentStep }: Props) => {
       >
         {currentStep === 1 && 'Halda áfram'}{' '}
         {currentStep > 1 && currentStep < 4 && 'Vista og halda áfram'}{' '}
-        {currentStep === 4 && 'Senda skattframtal'}
+        {currentStep === 4 && 'Vista og halda áfram'}
+        {currentStep === 5 && 'Skila framtali'}
         {currentStep === 6 && 'Opna mínar síður'}
-        {currentStep === 4 ? (
+        {currentStep === 5 ? (
           <Check color="white" size={18} />
         ) : (
           <ArrowRight color="white" size={18} />

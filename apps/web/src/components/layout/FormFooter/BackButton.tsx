@@ -1,37 +1,27 @@
 'use client';
-
 import { useRouter, useParams } from 'next/navigation';
 import { updateTaxReturn } from '@/lib/actions/updateTaxReturn';
 import { fetchTaxReturnsByUserId } from '@/lib/actions/fetchTaxReturns';
-
 type Props = {
   currentStep: number;
 };
-
 const BackButton = ({ currentStep }: Props) => {
   const router = useRouter();
   const params = useParams();
-
   const userId = typeof params?.id === 'string' ? params.id : '';
-
   const handleBack = async () => {
     if (!userId || currentStep <= 1) return;
-
+    const previousStep = currentStep === 4 ? 2 : currentStep - 1;
     const taxReturns = await fetchTaxReturnsByUserId(userId);
     const latestId = taxReturns?.[taxReturns.length - 1]?.id;
     if (!latestId) return;
-
     await updateTaxReturn({
       id: latestId,
-      lastStep: currentStep - 1,
+      lastStep: previousStep,
     });
-    console.log(currentStep, 'currentStep');
-    console.log(currentStep - 1, 'test');
-    router.push(`/tax-form/${userId}/step-${currentStep - 1}`);
+    router.push(`/tax-form/${userId}/step-${previousStep}`);
   };
-
   if (currentStep <= 1) return null;
-
   return (
     <button
       type="button"
@@ -42,5 +32,4 @@ const BackButton = ({ currentStep }: Props) => {
     </button>
   );
 };
-
 export default BackButton;

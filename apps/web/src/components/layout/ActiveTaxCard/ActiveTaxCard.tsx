@@ -50,7 +50,7 @@ export default async function ActiveTaxCard() {
           <div className="w-full h-2 rounded-full bg-primary-blue-100 mt-3">
             <div
               className="h-full bg-primary-blue-400 rounded-full transition-all duration-300"
-              style={{ width: `${Math.min((step / 5) * 100, 100)}%` }}
+              style={{ width: `${Math.min((step / 6) * 100, 100)}%` }}
             />
           </div>
           <Typography

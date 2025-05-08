@@ -9,7 +9,7 @@ const MailBoxItemComp = ({ mailBoxItem }: Props) => {
   return (
     <div className="bg-white border-b border-primary-blue-200  px-4 py-3 flex justify-between items-start hover:bg-blue-100 hover:cursor-pointer transition">
       <div className="flex items-center w-full gap-x-4">
-        <div className="rounded-full bg-primary-blue-200 w-10 h-10 flex justify-center items-center">
+        <div className="rounded-full bg-inherit md:bg-primary-blue-200 w-10 h-10 flex justify-center items-center">
           <mailBoxItem.icon className="w-6 h-6 text-primary-blue-400 p-2.5" />
         </div>
         <div>
