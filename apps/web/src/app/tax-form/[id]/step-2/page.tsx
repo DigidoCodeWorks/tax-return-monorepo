@@ -81,7 +81,13 @@ export default function IncomeStepPageWrapper({ params }: Props) {
     load();
   }, [params]);
 
-  if (loading) return <div className="p-12">Sæki gögn...</div>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-[calc(100vh-100px)]">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-blue-400 border-t-transparent" />
+      </div>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
