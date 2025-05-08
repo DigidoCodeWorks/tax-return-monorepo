@@ -117,11 +117,16 @@ export default function DebtStepPage({ params }: Props) {
     router.push(`/my-pages`);
   };
 
-  if (loading) return <div className="p-12">Sæki gögn...</div>;
-
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-[calc(100vh-100px)]">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-blue-400 border-t-transparent" />
+      </div>
+    );
+  }
   return (
     <form onSubmit={handleSubmit}>
-      <main className="ml-0 md:ml-4 lg:ml-12 p-6 py-20 px-8 md:px-20 lg:px-28 space-y-12 bg-white rounded-lg mt-0 md:mt-4 lg:mt-12 mb-0 md:mb-20">
+      <div className="w-full ml-0 md:ml-4 lg:ml-12 py-20 px-4 md:px-20 lg:px-28 space-y-12 bg-white rounded-lg mt-0 md:mt-4 lg:mt-12 mb-0 md:mb-20">
         <Typography
           variant="h2"
           as="h2"
@@ -154,7 +159,7 @@ export default function DebtStepPage({ params }: Props) {
         />
 
         <FormFooter currentStep={4} />
-      </main>
+      </div>
     </form>
   );
 }
