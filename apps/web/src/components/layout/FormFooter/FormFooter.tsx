@@ -7,7 +7,7 @@ type Props = {
 const FormFooter = ({ currentStep }: Props) => {
   return (
     <div
-      className={`border-t border-primary-dark-100 w-full  py-10 flex ${currentStep === 1 ? 'px-12 md:px-[114px]' : 'px-[0px]'} ${currentStep === 1 ? 'justify-end' : 'justify-between'} bg-white`}
+      className={`border-t border-primary-dark-100 w-full  py-10 flex ${currentStep === 1 || currentStep === 6 ? 'px-12 md:px-[114px]' : 'px-[0px]'} ${currentStep === 1 ? 'justify-end' : 'justify-between'} bg-white`}
     >
       <BackButton currentStep={currentStep} />
 
@@ -18,6 +18,7 @@ const FormFooter = ({ currentStep }: Props) => {
         {currentStep === 1 && 'Halda áfram'}{' '}
         {currentStep > 1 && currentStep < 4 && 'Vista og halda áfram'}{' '}
         {currentStep === 4 && 'Senda skattframtal'}
+        {currentStep === 6 && 'Opna mínar síður'}
         {currentStep === 4 ? (
           <Check color="white" size={18} />
         ) : (

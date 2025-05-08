@@ -15,7 +15,7 @@ const schema = z.object({
   }),
 });
 
-export default function TaxReturnStep1Page() {
+export default function Step1Page() {
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();

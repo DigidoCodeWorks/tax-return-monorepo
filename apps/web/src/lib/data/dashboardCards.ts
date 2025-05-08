@@ -18,7 +18,7 @@ export const dashboardCards = [
   },
   {
     title: 'Skattframtöl',
-    description: 'Hér er smá copy um skattframtöl',
+    description: 'Yfirlit yfir skattframtöl, útreikninga og ársreikninga',
     icon: LockIcon,
   },
   {
